@@ -1,0 +1,207 @@
+学习 商业技能 的GM命令
+
+草药学 (Herbalism)
+炼金术 (Alchemy)
+剥皮 (Skinning)
+制皮 (Leatherworking)
+采矿 (Mining)
+锻造 (Blacksmithing)
+裁缝 (Tailoring)
+附魔 (Enchanting)
+工程学 (Engineering)
+珠宝加工 (Jewelcrafting)
+铭文学 (Inscription)
+
+学习 生活技能 的GM命令
+
+急救 (First Aid)
+钓鱼 (Fishing)
+烹饪 (Cooking)
+开锁
+
+
+          
+   
+商业和生活技能的代码属于 Skill (技能类), 不属于 Spell (法术类). 但是和 学习武器和防具技能 类似, 与 商业技能训练师 对话时, 是通过对玩家施放一个法术, 来提高玩家的商业技能等级上线的. 这些法术属于 Spell.
+使用 .learn <spell_id> 即可习得该技能, 使用 .setskill <skill_id> <level> 即可设定该技能的等级。
+Note
+配方出处查询请参考插件 AckisRecipeList.
+配方的详细信息, 例如技能等级提升情况, 请参考插件 TradeskillInfo.
+
+
+初级 75
+中级 150
+高级 225
+专家 300
+大师 375
+宗师 450
+
+
+学习 商业技能 的GM命令
+Note
+注: 如果你想要学到最高等级, 你只需要 宗师 的那条命令, 和 .setskill 那条命令就可以了. 学了宗师级技能后, 低等级技能会自动习得.
+
+草药学 (Herbalism)
+.learn 2366 #初级
+.learn 2368 #中级
+.learn 3570 #高级
+.learn 11993 #专家
+.learn 28695 #大师草药学
+.learn 50300 #宗师
+.setskill 182 450
+
+炼金术 (Alchemy)
+.learn 2259 #初级
+.learn 3101 #中级
+.learn 3464 #高级
+.learn 11611 #专家
+.learn 28597 #大师炼金术
+.learn 50303 #宗师
+.setskill 171 450
+
+剥皮 (Skinning)
+.learn 8613 #初级
+.learn 8617 #中级
+.learn 8618 #高级
+.learn 10768 #专家
+.learn 32678 #大师剥皮
+.learn 50305 #宗师
+.setskill 393 450
+
+制皮 (Leatherworking)
+.learn 2108 #初级
+.learn 3104 #中级
+.learn 3811 #高级
+.learn 10662 #专家
+.learn 32549 #大师制皮
+.learn 51302 #宗师
+.setskill 165 450
+
+采矿 (Mining)
+.learn 2575 #初级
+.learn 2576 #中级
+.learn 3564 #高级
+.learn 10248 #专家
+.learn 29354 #大师采矿
+.learn 50310 #宗师
+.setskill 186 450
+
+锻造 (Blacksmithing)
+.learn 2018 #初级
+.learn 3100 #中级
+.learn 3538 #高级
+.learn 9785 #专家
+.learn 29844 #大师锻造
+.learn 51300 #宗师
+.setskill 164 450
+
+裁缝 (Tailoring)
+.learn 3908 #初级
+.learn 3909 #中级
+.learn 3910 #高级
+.learn 12180 #专家
+.learn 26790 #大师裁缝
+.learn 51309 #宗师
+.setskill 197 450
+
+附魔 (Enchanting)
+.learn 7411 #初级
+.learn 7412 #中级
+.learn 7413 #高级
+.learn 13920 #专家
+.learn 28029 #大师附魔
+.learn 51313 #宗师
+.setskill 333 450
+
+工程学 (Engineering)
+.learn 4036 #初级
+.learn 4037 #中级
+.learn 4038 #高级
+.learn 12656 #专家
+.learn 30350 #大师工程学
+.learn 51306 #宗师
+.setskill 202 450
+
+珠宝加工 (Jewelcrafting)
+.learn 25229 #初级
+.learn 25230 #中级
+.learn 28894 #高级
+.learn 28895 #专家
+.learn 28897 #大师珠宝加工
+.learn 51311 #宗师
+.setskill 755 450
+
+铭文学 (Inscription)
+.learn 45357 #初级
+.learn 45358 #中级
+.learn 45359 #高级
+.learn 45360 #专家
+.learn 45361 #大师铭文学
+.learn 45363 #宗师
+.setskill 773 450
+
+学习 生活技能 的GM命令
+急救 (First Aid)
+.learn 3273 #初级
+.learn 3274 #中级
+.learn 7924 #高级
+.learn 10846 #专家
+.learn 27028 #大师急救
+.learn 45542 #宗师
+.setskill 129 450
+
+钓鱼 (Fishing)
+.learn 7620 #初级
+.learn 7731 #中级
+.learn 7732 #高级
+.learn 18248 #专家
+.learn 33095 #大师钓鱼
+.learn 64484 #宗师
+.setskill 356 450
+
+烹饪 (Cooking)
+.learn 2550 #初级
+.learn 3102 #中级
+.learn 3413 #高级
+.learn 18260 #专家
+.learn 33359 #大师烹饪
+.learn 51296 #宗师
+.setskill 185 450
+
+开锁  (# 60级最高300, 70级最高350, 80级最高400)
+.learn 1804 #开锁
+.setskill 633 400
+
+学会所有生活技能的宏命令
+.learn 64484 #钓鱼
+.setskill 356 450
+.learn 51296 #烹饪
+.setskill 185 450
+.learn 45542 #急救
+.setskill 129 450
+
+--------------------------
+以上内容参考 wotlkdoc.readthedocs.io
+
+
+.learn all recipes [$profession]  使用此命令，学习本专业所有配方并使专业技能最大（450）
+
+Tailoring #裁缝
+Blacksmithing #锻造
+Leatherworking #制皮
+Alchemy  #炼金
+Enchanting #附魔
+Engineering #工程
+Inscription #铭文
+Jewelcrafting #珠宝
+
+Mining #采矿
+Skinning #剥皮
+Herbalism #草药学
+
+First Aid #急救
+Cooking #烹饪
+Fishing #钓鱼
+
+.learn all recipes [$profession]	Learns all recipes of specified profession and sets skill level to max. Example: .learn all recipes enchanting
+如果 DBC 换成中文，需要使用中文名称，例如  .learn all recipes 附魔

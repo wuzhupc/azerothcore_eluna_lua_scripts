@@ -1,0 +1,262 @@
+--[[
+Author: wuzhu
+Date: 2024-10-23 14:24:47
+LastEditTime: 2024-10-23 16:44:29
+FilePath: \Scripts\Custom\WuzhuCustom\wzbind.lua
+Description: 
+Copyright (c) 2024 by WUZHUPC, All Rights Reserved. 
+--]]
+print(">>Script: ItemWzBind loading...")
+local ItemWzBind = {
+    bindEntry = 922001,  --绑定物品ID
+    teleportEntry = 922002,  --传送物品ID
+    inputBindEntry = 922004,  --绑定物品ID（弹出输入）
+}
+
+--发送标识位置
+function ItemWzBind.SendPOI(player,x,y,name)
+    --( x, y, icon, flags, data, iconText )
+    --https://www.azerothcore.org/wiki/points_of_interest
+    --https://www.azerothcore.org/pages/eluna/Player/GossipSendPOI.html
+    player:GossipSendPOI(math.modf(x),math.modf(y),12,99,0,name)
+end
+
+--通过区域ID返回区域名称，所属地图名称
+function ItemWzBind.GetAreaInfo(areaId)
+    local area = ItemWzBind["areatable"][areaId]
+    if not area then
+        return "",""
+    end
+    return area.name, area.mapName
+end
+--物品使用事件(绑定菜单)
+function ItemWzBind.OnBindUse(event, player, item)
+    if (player:IsInCombat()) then
+        player:SendAreaTriggerMessage("不能在战斗中使用。")
+        return
+    end
+    player:GossipClearMenu()
+    ItemWzBind.LoadCache(player)
+    for k, v in pairs(ItemWzBind["Binds"]) do
+        player:GossipMenuAddItem(3, "<绑定>"..v.name, 0, k)
+    end
+    player:GossipSendMenu(1, item)
+end
+
+function ItemWzBind.OnBindSelect(event, player, object, sender, intid, code, menuid)    
+    if (player:IsInCombat()) then
+        player:SendAreaTriggerMessage("不能在战斗中使用。")
+        player:GossipComplete()
+        return
+    end
+    local accountId = player:GetGUIDLow()
+    local w = ItemWzBind["Binds"][intid]
+    -- 获取当前玩家坐标
+    local x, y, z, o = player:GetLocation()
+    local map = player:GetMap()
+    local mapId = map:GetMapId()
+    local areaId = map:GetAreaId(x, y, z)
+    local areaName,mapName = ItemWzBind.GetAreaInfo(areaId)
+    if(areaName == "") then
+        mapName = map:GetName()
+        -- 第二参数地区常量，0 英文 4 中文 5 繁体
+        areaName = GetAreaName(areaId)
+    end  
+
+    if(map:IsArena() or map:IsBattleground() or map:IsRaid()) then
+        player:SendBroadcastMessage("战场及副本不能绑定位置")
+    else
+        -- 判断是否已经绑定,如果已经绑定则更新,否则插入
+        if(w.type == 1) then  
+            local sql = "UPDATE `eluna_wzbind` SET `name` = '" .. areaName .. "(" .. mapName ..")', `mapId` = " .. mapId .. ", `posX` = " .. x .. ", `posY` = " .. y .. ", `posZ` = " .. z .. ", `orientation` = " .. o .. " WHERE `guid` = " .. accountId .. " AND `index` = " .. w.index .. ";"
+            print("[E-SQL WZBind]:"..sql)
+            CharDBExecute(sql)
+        else
+            local insertSql = "INSERT INTO `eluna_wzbind` ( `guid`, `index`, `name`, `mapId`, `posX`, `posY`, `posZ`, `orientation` ) VALUES (" .. accountId .. ", " .. w.index .. ", '" .. areaName .. "(" .. mapName ..")', " .. mapId .. ", " .. x .. ", " .. y .. ", " .. z .. ", " .. o .. ");"
+            print("[E-SQL WZBind]:"..insertSql)
+            CharDBExecute(insertSql)
+        end
+        player:SendBroadcastMessage("绑定位置--"..areaName.."("..mapName..")--成功")
+    end
+    player:GossipComplete()
+end
+
+--物品使用事件(绑定菜单-弹出输入模式)
+function ItemWzBind.OnInputBindUse(event, player, item)    
+    if (player:IsInCombat()) then
+        player:SendAreaTriggerMessage("不能在战斗中使用。")
+        return
+    end
+    player:GossipClearMenu()
+    ItemWzBind.LoadCache(player)
+    player:SendAreaTriggerMessage("输入0=使用系统名称,1=使用原来名称,2=标识绑定位置")
+    for k, v in pairs(ItemWzBind["Binds"]) do
+        -- icon, msg, sender, intid, code, popup, money
+        player:GossipMenuAddItem(3, "<绑定>"..v.name, 0, k, true)
+    end
+    player:GossipSendMenu(1, item)
+end
+--菜单点击处理(绑定菜单-弹出输入模式)
+function ItemWzBind.OnInputBindSelect(event, player, object, sender, intid, code, menuid)    
+    if (player:IsInCombat()) then
+        player:SendAreaTriggerMessage("不能在战斗中使用。")
+        player:GossipComplete()
+        return
+    end
+    local accountId = player:GetGUIDLow()
+    local w = ItemWzBind["Binds"][intid]
+    -- 获取当前玩家坐标
+    local x, y, z, o = player:GetLocation()
+    local map = player:GetMap()
+    local mapId = map:GetMapId()
+
+    local areaId = map:GetAreaId(x, y, z)
+    local areaName = code
+    local mapName = map:GetName()
+
+    if(not code or code == "0") then
+        -- 0时使用系统解析名称
+        local lareaName,lmapName = ItemWzBind.GetAreaInfo(areaId)
+        if(areaName ~= "") then
+            mapName = lmapName
+            areaName = lareaName
+        else
+            -- 第二参数地区常量，0 英文 4 中文 5 繁体
+            areaName = GetAreaName(areaId)
+        end
+    end
+    if code=="1" then
+        -- 1时使用原来名称，原来名称没有使用新的
+        if(w and w.name) then
+            areaName = w.name
+        end
+    elseif code=="2" then
+        -- 2时标识当前位置,无位置则标识用户当前位置
+        if(w.type == 1) then
+            ItemWzBind.SendPOI(player, w.posX, w.posY, w.name)
+        else
+            ItemWzBind.SendPOI(player, x, y, areaName)
+        end
+        player:GossipComplete()
+        return
+    end
+    if(map:IsArena() or map:IsBattleground() or map:IsRaid()) then
+        player:SendBroadcastMessage("战场及副本不能绑定位置")
+    else
+        -- 判断是否已经绑定,如果已经绑定则更新,否则插入
+        if(w.type == 1) then  
+            local sql = "UPDATE `eluna_wzbind` SET `name` = '" .. areaName .. "(" .. mapName ..")', `mapId` = " .. mapId .. ", `posX` = " .. x .. ", `posY` = " .. y .. ", `posZ` = " .. z .. ", `orientation` = " .. o .. " WHERE `guid` = " .. accountId .. " AND `index` = " .. w.index .. ";"
+            print("[E-SQL WZBind]:"..sql)
+            CharDBExecute(sql)
+        else
+            local insertSql = "INSERT INTO `eluna_wzbind` ( `guid`, `index`, `name`, `mapId`, `posX`, `posY`, `posZ`, `orientation` ) VALUES (" .. accountId .. ", " .. w.index .. ", '" .. areaName .. "(" .. mapName ..")', " .. mapId .. ", " .. x .. ", " .. y .. ", " .. z .. ", " .. o .. ");"
+            print("[E-SQL WZBind]:"..insertSql)
+            CharDBExecute(insertSql)
+        end
+        player:SendBroadcastMessage("绑定位置--"..areaName.."("..mapName..")--成功")
+    end
+    player:GossipComplete()
+end
+
+function ItemWzBind.OnTeleportUse(event, player, item)    
+    if (player:IsInCombat()) then
+        player:SendAreaTriggerMessage("不能在战斗中使用。")
+        return
+    end
+    player:GossipClearMenu()
+    ItemWzBind.LoadCache(player)
+    for k, v in pairs(ItemWzBind["Binds"]) do
+        player:GossipMenuAddItem(2, "<传送>"..v.name, 0, k, false,"确定要传送到"..v.name.."吗？")
+    end
+    player:GossipSendMenu(1, item)
+end
+
+function ItemWzBind.OnTeleportSelect(event, player, object, sender, intid, code, menuid)    
+    if (player:IsInCombat()) then
+        player:SendAreaTriggerMessage("不能在战斗中使用。")
+        player:GossipComplete()
+        return
+    end
+    local w = ItemWzBind["Binds"][intid]
+    if(w and w.type == 1) then
+        player:Teleport(w.mapId, w.posX, w.posY, w.posZ, w.orientation)
+    else
+        player:SendBroadcastMessage("该传送点未绑定")
+    end
+    player:GossipComplete()
+end
+
+function ItemWzBind.LoadAreaTableCache()
+    ItemWzBind["areatable"] = {}
+    ItemWzBind["maptable"] = {}
+    if not(WorldDBQuery("SHOW TABLES LIKE 'areatable_dbc_base';")) then
+        print("[E-SQL WZBind]: areatable_dbc_base table missing from world database.")
+        return
+    end
+    local Query = WorldDBQuery("SELECT adb.ID as aid,adb.ContinentID as mid,adb.ParentAreaID as paid,adb.AreaName_Lang_enCN as aname, mdb.MapName_Lang_enCN as mname   from areatable_dbc_base adb LEFT JOIN map_dbc_base mdb on adb.ContinentID = mdb.ID;")
+    if not Query then
+        print("[E-SQL WZBind]: areatable_dbc_base table No results found.")
+        return
+    end
+    local mapcount = 0
+    repeat
+        local row = Query:GetRow()
+        ItemWzBind["areatable"][row["aid"]] = {
+            id = row["aid"],
+            mapId = row["mid"],
+            parentId = row["paid"],
+            name = row["aname"],
+            mapName = row["mname"]
+        }
+        if(not ItemWzBind["maptable"][row["mid"]] ) then
+            mapcount = mapcount + 1
+            ItemWzBind["maptable"][row["mid"]] = row["mname"]
+        end
+    until not Query:NextRow()
+    print("[E-SQL WZBind]: areatable_dbc_base table loaded.Loaded  Area:" .. Query:GetRowCount() .. " results;Map: " .. mapcount .. " results.")
+end
+
+function ItemWzBind.LoadCache(player)
+    ItemWzBind["Binds"] = {}
+    local accountId = player:GetGUIDLow()
+    for i=1, 16 do
+        ItemWzBind["Binds"][i] = {
+            type = 0,
+            index = i,
+            name = "<未绑定>",
+        };
+    end
+    if not(CharDBQuery("SHOW TABLES LIKE 'eluna_wzbind';")) then
+        print("[E-SQL WZBind]: eluna_wzbind table missing from char database.")
+    else
+        local result = CharDBQuery("SELECT * FROM eluna_wzbind WHERE guid = " .. accountId .. ";")
+        if result then
+            repeat
+               local row = result:GetRow()
+               ItemWzBind["Binds"][row["index"]] = {
+                   type = 1,
+                   index = row["index"],
+                   name = row["name"],
+                   guid = row["guid"],
+                   mapId = row["mapId"],
+                   orientation = row["orientation"],
+                   posX = row["posX"],
+                   posY = row["posY"],
+                   posZ = row["posZ"],
+               };
+            until not result:NextRow()
+        end
+    end
+end
+
+ItemWzBind.LoadAreaTableCache()
+
+RegisterItemGossipEvent(ItemWzBind.bindEntry, 1, ItemWzBind.OnBindUse)
+RegisterItemGossipEvent(ItemWzBind.bindEntry, 2, ItemWzBind.OnBindSelect)
+
+RegisterItemGossipEvent(ItemWzBind.inputBindEntry, 1, ItemWzBind.OnInputBindUse)
+RegisterItemGossipEvent(ItemWzBind.inputBindEntry, 2, ItemWzBind.OnInputBindSelect)
+
+RegisterItemGossipEvent(ItemWzBind.teleportEntry, 1, ItemWzBind.OnTeleportUse)
+RegisterItemGossipEvent(ItemWzBind.teleportEntry, 2, ItemWzBind.OnTeleportSelect)
+print(">>Script: ItemWzBind loaded")

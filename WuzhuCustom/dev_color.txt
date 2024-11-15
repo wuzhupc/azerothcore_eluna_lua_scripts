@@ -1,0 +1,46 @@
+    --primary-100:#7B4F8E;
+    --primary-200:#563763;
+    --primary-300:#D7C5DF;
+    --accent-100:#B794C0;
+    --accent-200:#895896;
+    --text-100:#FFFFFF;
+    --text-200:#909090;
+    --bg-100:#3B2D4D;
+    --bg-200:#382B49;
+    --bg-300:#4D3B64;
+      
+
+          --primary-100:#6c35de;
+    --primary-200:#a364ff;
+    --primary-300:#ffc7ff;
+    --accent-100:#cb80ff;
+    --accent-200:#373737;
+    --text-100:#ffffff;
+    --text-200:#e0e0e0;
+    --bg-100:#241b35;
+    --bg-200:#342a45;
+    --bg-300:#4d425f;
+      
+
+          --primary-100:#1F3A5F;
+    --primary-200:#4d648d;
+    --primary-300:#acc2ef;
+    --accent-100:#3D5A80;
+    --accent-200:#cee8ff;
+    --text-100:#FFFFFF;
+    --text-200:#e0e0e0;
+    --bg-100:#0F1C2E;
+    --bg-200:#1f2b3e;
+    --bg-300:#374357;
+      
+    --primary-100:#FF7F50;
+    --primary-200:#dd6236;
+    --primary-300:#8f1e00;
+    --accent-100:#8B4513;
+    --accent-200:#ffd299;
+    --text-100:#000000;
+    --text-200:#2c2c2c;
+    --bg-100:#F7EEDD;
+    --bg-200:#ede4d3;
+    --bg-300:#c4bcab;
+      

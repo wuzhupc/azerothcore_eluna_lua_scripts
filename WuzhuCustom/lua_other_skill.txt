@@ -1,0 +1,473 @@
+SY01=function(player)--商业技能熟练度
+                if player:HasSpell( 29354 ) then
+                        player:SendBroadcastMessage("你的采矿专业已满。")
+                        player:ModifyMoney(30000000)--返还
+                        return
+                end
+                player:LearnSpell(2575)
+                player:LearnSpell(2576)
+                player:LearnSpell(3564)
+                player:LearnSpell(10248)
+                player:LearnSpell(29354)
+                player:AdvanceSkill(186, 374)--1
+    end,
+
+        SY02=function(player) --商业技能熟练度
+        if player:HasSpell( 28695 ) then
+                        player:SendBroadcastMessage("你的草药学专业已满。")
+                        player:ModifyMoney(30000000)--返还
+                        return
+                end
+                player:LearnSpell(2366)
+                player:LearnSpell(2368)
+                player:LearnSpell(3570)
+                player:LearnSpell(11993)
+                player:LearnSpell(28695)
+                player:AdvanceSkill(182, 374)--2
+    end,
+
+        SY03=function(player)--商业技能熟练度
+        if player:HasSpell( 32678 ) then
+                        player:SendBroadcastMessage("你的剥皮专业已满。")
+                        player:ModifyMoney(30000000)--返还
+                        return
+                end
+                player:LearnSpell(8613)
+                player:LearnSpell(8617)
+                player:LearnSpell(8618)
+                player:LearnSpell(10768)
+                player:LearnSpell(32678)
+                player:AdvanceSkill(393, 374)--3
+    end,
+
+        SY04=function(player)--商业技能熟练度
+        if player:HasSpell( 30350 ) then
+                        player:SendBroadcastMessage("你的工程学专业已满。")
+                        player:ModifyMoney(30000000)--返还
+                        return
+                end
+                player:LearnSpell(4036)
+                player:LearnSpell(4037)
+                player:LearnSpell(4038)
+                player:LearnSpell(12656)
+                player:LearnSpell(30350)
+                player:AdvanceSkill(202, 374)--4
+    end,
+
+        SY05=function(player)--商业技能熟练度
+        if player:HasSpell( 28596 ) then
+                        player:SendBroadcastMessage("你的炼金专业已满。")
+                        player:ModifyMoney(30000000)--返还
+                        return
+                end
+                player:LearnSpell(2259)
+                player:LearnSpell(3101)
+                player:LearnSpell(3464)
+                player:LearnSpell(11611)
+                player:LearnSpell(28596)
+                player:AdvanceSkill(171, 374)--5
+    end,
+
+        SY06=function(player)--商业技能熟练度
+        if player:HasSpell( 32549 ) then
+                        player:SendBroadcastMessage("你的制皮专业已满。")
+                        player:ModifyMoney(30000000)--返还
+                        return
+                end
+                player:LearnSpell(2108)
+                player:LearnSpell(3104)
+                player:LearnSpell(3811)
+                player:LearnSpell(10662)
+                player:LearnSpell(32549)
+                player:AdvanceSkill(165, 374)--6
+    end,
+
+        SY07=function(player)--商业技能熟练度
+        if player:HasSpell( 26790 ) then
+                        player:SendBroadcastMessage("你的裁缝专业已满。")
+                        player:ModifyMoney(30000000)--返还
+                        return
+                end
+                player:LearnSpell(3908)
+                player:LearnSpell(3909)
+                player:LearnSpell(3910)
+                player:LearnSpell(12180)
+                player:LearnSpell(26790)
+                player:AdvanceSkill(197, 374)--7
+    end,
+
+        SY08=function(player)--商业技能熟练度
+        if player:HasSpell( 29844 ) then
+                        player:SendBroadcastMessage("你的锻造专业已满。")
+                        player:ModifyMoney(30000000)--返还
+                        return
+                end
+                player:LearnSpell(2018)
+                player:LearnSpell(3100)
+                player:LearnSpell(3538)
+                player:LearnSpell(9785)
+                player:LearnSpell(29844)
+                player:AdvanceSkill(164, 374)--8
+    end,
+
+        SY09=function(player)--商业技能熟练度
+        if player:HasSpell( 28029 ) then
+                        player:SendBroadcastMessage("你的附魔专业已满。")
+                        player:ModifyMoney(30000000)--返还
+                        return
+                end
+                player:LearnSpell(7411)
+                player:LearnSpell(7412)
+                player:LearnSpell(7413)
+                player:LearnSpell(13920)
+                player:LearnSpell(28029)
+                player:AdvanceSkill(333, 374)--9
+    end,
+
+        SY10=function(player)--商业技能熟练度
+       if player:HasSpell( 28897 ) then
+                        player:SendBroadcastMessage("你的珠宝专业已满。")
+                        player:ModifyMoney(30000000)--返还
+                return
+        end
+                player:LearnSpell(25229)
+                player:LearnSpell(25230)
+                player:LearnSpell(28894)
+                player:LearnSpell(28895)
+                player:LearnSpell(28897)
+                player:AdvanceSkill(755, 374)--10
+    end,
+
+        SY11=function(player)--商业技能熟练度
+        if player:HasSpell( 45361 ) then
+                        player:SendBroadcastMessage("你的铭文专业已满。")
+                        player:ModifyMoney(30000000)--返还
+                        return
+                end
+                player:LearnSpell(45357)
+                player:LearnSpell(45358)
+                player:LearnSpell(45359)
+                player:LearnSpell(45360)
+                player:LearnSpell(45361)
+                player:AdvanceSkill(773, 374)--11
+    end,
+
+        SY12=function(player)--商业技能熟练度
+        if player:HasSpell( 33359 ) then
+                        player:SendBroadcastMessage("你的烹饪专业已满。")
+                        player:ModifyMoney(30000000)--返还
+                        return
+                end
+                player:LearnSpell(2550)
+                player:LearnSpell(3102)
+                player:LearnSpell(3413)
+                player:LearnSpell(18260)
+                player:LearnSpell(33359)
+                player:AdvanceSkill(185, 374)--12
+    end,
+
+        SY13=function(player)--商业技能熟练度
+        if player:HasSpell( 27028 ) then
+                        player:SendBroadcastMessage("你的急救专业已满。")
+                        player:ModifyMoney(30000000)--返还
+                        return
+                end
+                player:LearnSpell(3273)
+                player:LearnSpell(3274)
+                player:LearnSpell(7924)
+                player:LearnSpell(10846)
+                player:LearnSpell(27028)
+                player:AdvanceSkill(129, 374)--13
+    end,
+
+        SY14=function(player)--商业技能熟练度
+                if player:HasSpell( 33095 ) then
+                        player:SendBroadcastMessage("你的钓鱼专业已满。")
+                        player:ModifyMoney(30000000)--返还
+                        return
+                end
+                player:LearnSpell(7620)
+                player:LearnSpell(7731)
+                player:LearnSpell(7732)
+                player:LearnSpell(18248)
+                player:LearnSpell(33095)
+                player:AdvanceSkill(356, 374)--14
+    end,
+
+        SC01=function(player)--商业技能熟练度
+                if player:HasSpell( 2575 ) then
+                        player:SendBroadcastMessage("你的采矿专业已学会。")
+                        player:ModifyMoney(15000000)--返还
+                        return
+                end
+                player:LearnSpell(2575)
+    end,
+
+        SC02=function(player) --商业技能熟练度
+        if player:HasSpell( 2366 ) then
+                        player:SendBroadcastMessage("你的草药学专业已学会。")
+                        player:ModifyMoney(15000000)--返还
+                        return
+                end
+                player:LearnSpell(2366)
+    end,
+
+        SC03=function(player)--商业技能熟练度
+        if player:HasSpell( 8613 ) then
+                        player:SendBroadcastMessage("你的剥皮专业已学会。")
+                        player:ModifyMoney(15000000)--返还
+                        return
+                end
+                player:LearnSpell(8613)
+    end,
+
+        SC04=function(player)--商业技能熟练度
+        if player:HasSpell( 4036 ) then
+                        player:SendBroadcastMessage("你的工程学专业已学会。")
+                        player:ModifyMoney(15000000)--返还
+                        return
+                end
+                player:LearnSpell(4036)
+    end,
+
+        SC05=function(player)--商业技能熟练度
+        if player:HasSpell( 2259 ) then
+                        player:SendBroadcastMessage("你的炼金专业已学会。")
+                        player:ModifyMoney(15000000)--返还
+                        return
+                end
+                player:LearnSpell(2259)
+    end,
+
+        SC06=function(player)--商业技能熟练度
+        if player:HasSpell( 2108 ) then
+                        player:SendBroadcastMessage("你的制皮专业已学会。")
+                        player:ModifyMoney(15000000)--返还
+                        return
+                end
+                player:LearnSpell(2108)
+    end,
+
+        SC07=function(player)--商业技能熟练度
+        if player:HasSpell( 3908 ) then
+                        player:SendBroadcastMessage("你的裁缝专业已学会。")
+                        player:ModifyMoney(15000000)--返还
+                        return
+                end
+                player:LearnSpell(3908)
+    end,
+
+        SC08=function(player)--商业技能熟练度
+        if player:HasSpell( 2018 ) then
+                        player:SendBroadcastMessage("你的锻造专业已学会。")
+                        player:ModifyMoney(15000000)--返还
+                        return
+                end
+                player:LearnSpell(2018)
+    end,
+
+        SC09=function(player)--商业技能熟练度
+        if player:HasSpell( 7411 ) then
+                        player:SendBroadcastMessage("你的附魔专业已学会。")
+                        player:ModifyMoney(15000000)--返还
+                        return
+                end
+                player:LearnSpell(7411)
+    end,
+
+        SC10=function(player)--商业技能熟练度
+       if player:HasSpell( 25229 ) then
+                        player:SendBroadcastMessage("你的珠宝专业已学会。")
+                        player:ModifyMoney(15000000)--返还
+                        return
+                end
+                player:LearnSpell(25229)
+    end,
+
+        SC11=function(player)--商业技能熟练度
+        if player:HasSpell( 45357 ) then
+                        player:SendBroadcastMessage("你的铭文专业已学会。")
+                        player:ModifyMoney(15000000)--返还
+                        return
+                end
+                player:LearnSpell(45357)
+    end,
+
+        SC12=function(player)--商业技能熟练度
+        if player:HasSpell( 2550 ) then
+                        player:SendBroadcastMessage("你的烹饪专业已学会。")
+                        player:ModifyMoney(15000000)--返还
+                        return
+                end
+                player:LearnSpell(2550)
+    end,
+
+        SC13=function(player)--商业技能熟练度
+        if player:HasSpell( 3273 ) then
+                        player:SendBroadcastMessage("你的急救专业已学会。")
+                        player:ModifyMoney(15000000)--返还
+                        return
+                end
+                player:LearnSpell(3273)
+    end,
+
+        SC14=function(player)--商业技能熟练度
+                if player:HasSpell( 7620 ) then
+                        player:SendBroadcastMessage("你的钓鱼专业已学会。")
+                        player:ModifyMoney(15000000)--返还
+                        return
+                end
+                player:LearnSpell(7620)
+    end,
+
+        SW01=function(player)--声望塞纳里奥远征队
+                if player:GetReputationRank(942) > 6 then
+                        player:SendBroadcastMessage("你的塞纳里奥远征队声望已崇拜。")
+                        player:ModifyMoney(50000000)--返还
+                        return
+                end
+                player:SetReputation(942, 42999)
+    end,
+
+        SW02=function(player)--声望荣耀堡
+                if player:GetReputationRank(946) > 6 then
+                        player:SendBroadcastMessage("你的荣耀堡声望已崇拜。")
+                        player:ModifyMoney(50000000)--返还
+                        return
+                end
+                if(player:GetTeam()==TEAM_ALLIANCE)then
+                        player:SetReputation(946, 42999)
+                        --player:SetReputation(947, -3001)        --扣除萨尔玛的
+                else
+                        player:SendBroadcastMessage("部落不能秒荣耀堡声望。")
+                        player:ModifyMoney(50000000)--返还
+                end
+    end,
+
+        SW03=function(player)--声望萨尔玛
+                if player:GetReputationRank(947) > 6 then
+                        player:SendBroadcastMessage("你的萨尔玛声望已崇拜。")
+                        player:ModifyMoney(50000000)--返还
+                        return
+                end
+                if(player:GetTeam()==TEAM_HORDE)then
+                        player:SetReputation(947, 42999)
+                        --player:SetReputation(946, -3001)  ----扣除荣耀堡的
+                else
+                        player:SendBroadcastMessage("联盟不能秒萨尔玛声望。")
+                        player:ModifyMoney(50000000)--返还
+                end
+    end,
+
+        SW04=function(player)--声望沙塔尔
+                if player:GetReputationRank(935) > 6 then
+                        player:SendBroadcastMessage("你的沙塔尔声望已崇拜。")
+                        player:ModifyMoney(50000000)--返还
+                        return
+                end
+                player:SetReputation(935, 42999)
+    end,
+
+        SW05=function(player)--声望贫民窟
+                if player:GetReputationRank(1011) > 6 then
+                        player:SendBroadcastMessage("你的贫民窟声望已崇拜。")
+                        player:ModifyMoney(50000000)--返还
+                        return
+                end
+                player:SetReputation(1011, 42999)
+    end,
+
+        SW06=function(player)--声望时光守护者
+                if player:GetReputationRank(989) > 6 then
+                        player:SendBroadcastMessage("你的时光守护者声望已崇拜。")
+                        player:ModifyMoney(50000000)--返还
+                        return
+                end
+                player:SetReputation(989, 42999)
+    end,
+
+        SW07=function(player)--声望破碎残阳
+                if player:GetReputationRank(1077) > 6 then
+                        player:SendBroadcastMessage("你的破碎残阳声望已崇拜。")
+                        player:ModifyMoney(70000000)--返还
+                        return
+                end
+                player:SetReputation(1077, 42999)
+    end,
+
+        SW08=function(player)--声望星界财团
+                if player:GetReputationRank(933) > 6 then
+                        player:SendBroadcastMessage("你的星界财团声望已崇拜。")
+                        player:ModifyMoney(70000000)--返还
+                        return
+                end
+                player:SetReputation(933, 42999)
+    end,
+
+        SW09=function(player)--声望孢子村
+                if player:GetReputationRank(970) > 6 then
+                        player:SendBroadcastMessage("你的孢子村声望已崇拜。")
+                        player:ModifyMoney(70000000)--返还
+                        return
+                end
+                player:SetReputation(970, 42999)
+    end,
+
+        SW10=function(player)--声望血帆海盗
+                if player:GetReputationRank(87) > 6 then
+                        player:SendBroadcastMessage("你的血帆海盗声望已崇拜。")
+                        player:ModifyMoney(100000000)--返还
+                        return
+                end
+                player:SetReputation(87, 42999)
+                -- player:SetReputation(21, -3001)   --扣藏宝海湾声望，暂时不扣，不然影响中立拍卖等
+    end,
+
+后面的加入炉石的菜单内
+
+        [ZYMENU*0x10+1]={--专业新开，具有收费金额参数，失败也会扣金币，因此需要在实现端判定是否返还
+                {FUNC, "新开->|cFF006400【采矿】|r->|cFFB222221级|r",                Stone.SC01,        GOSSIP_ICON_TRAINER,                false,"是否新开|cFFFFFF00采矿|r技能？",15000000},
+                {FUNC, "新开->|cFF006400【草药】|r->|cFFB222221级|r",                Stone.SC02,        GOSSIP_ICON_TRAINER,                false,"是否新开|cFFFFFF00草药|r技能？",15000000},
+                {FUNC, "新开->|cFF006400【剥皮】|r->|cFFB222221级|r",                Stone.SC03,        GOSSIP_ICON_TRAINER,                false,"是否新开|cFFFFFF00剥皮|r技能？",15000000},
+                {FUNC, "新开->|cFF006400【工程】|r->|cFFB222221级|r",                Stone.SC04,        GOSSIP_ICON_TRAINER,                false,"是否新开|cFFFFFF00工程|r技能？",15000000},
+                {FUNC, "新开->|cFF006400【炼金】|r->|cFFB222221级|r",                Stone.SC05,        GOSSIP_ICON_TRAINER,                false,"是否新开|cFFFFFF00炼金|r技能？",15000000},
+                {FUNC, "新开->|cFF006400【制皮】|r->|cFFB222221级|r",                Stone.SC06,        GOSSIP_ICON_TRAINER,                false,"是否新开|cFFFFFF00制皮|r技能？",15000000},
+                {FUNC, "新开->|cFF006400【裁缝】|r->|cFFB222221级|r",                Stone.SC07,        GOSSIP_ICON_TRAINER,                false,"是否新开|cFFFFFF00裁缝|r技能？",15000000},
+                {FUNC, "新开->|cFF006400【锻造】|r->|cFFB222221级|r",                Stone.SC08,        GOSSIP_ICON_TRAINER,                false,"是否新开|cFFFFFF00锻造|r技能？",15000000},
+                {FUNC, "新开->|cFF006400【附魔】|r->|cFFB222221级|r",                Stone.SC09,        GOSSIP_ICON_TRAINER,                false,"是否新开|cFFFFFF00附魔|r技能？",15000000},
+                {FUNC, "新开->|cFF006400【珠宝】|r->|cFFB222221级|r",                Stone.SC10,        GOSSIP_ICON_TRAINER,                false,"是否新开|cFFFFFF00珠宝|r技能？",15000000},
+                {FUNC, "新开->|cFF006400【铭文】|r->|cFFB222221级|r",                Stone.SC11,        GOSSIP_ICON_TRAINER,                false,"是否新开|cFFFFFF00铭文|r技能？",15000000},
+                {FUNC, "新开->|cFF006400【烹饪】|r->|cFFB222221级|r",                Stone.SC12,        GOSSIP_ICON_TRAINER,                false,"是否新开|cFFFFFF00烹饪|r技能？",15000000},
+                {FUNC, "新开->|cFF006400【急救】|r->|cFFB222221级|r",                Stone.SC13,        GOSSIP_ICON_TRAINER,                false,"是否新开|cFFFFFF00急救|r技能？",15000000},
+                {FUNC, "新开->|cFF006400【钓鱼】|r->|cFFB222221级|r",                Stone.SC14,        GOSSIP_ICON_TRAINER,                false,"是否新开|cFFFFFF00钓鱼|r技能？",15000000}
+        },
+
+        [ZYMENU*0x10+2]={--专业秒满，具有收费金额参数，失败也会扣金币，因此需要在实现端判定是否返还
+                {FUNC, "秒满->|cFF006400【采矿】|r->|cFFB22222375级|r",                Stone.SY01,        GOSSIP_ICON_TRAINER,                false,"是否秒满|cFFFFFF00采矿|r技能？",30000000},
+                {FUNC, "秒满->|cFF006400【草药】|r->|cFFB22222375级|r",                Stone.SY02,        GOSSIP_ICON_TRAINER,                false,"是否秒满|cFFFFFF00草药|r技能？",30000000},
+                {FUNC, "秒满->|cFF006400【剥皮】|r->|cFFB22222375级|r",                Stone.SY03,        GOSSIP_ICON_TRAINER,                false,"是否秒满|cFFFFFF00剥皮|r技能？",30000000},
+                {FUNC, "秒满->|cFF006400【工程】|r->|cFFB22222375级|r",                Stone.SY04,        GOSSIP_ICON_TRAINER,                false,"是否秒满|cFFFFFF00工程|r技能？",30000000},
+                {FUNC, "秒满->|cFF006400【炼金】|r->|cFFB22222375级|r",                Stone.SY05,        GOSSIP_ICON_TRAINER,                false,"是否秒满|cFFFFFF00炼金|r技能？",30000000},
+                {FUNC, "秒满->|cFF006400【制皮】|r->|cFFB22222375级|r",                Stone.SY06,        GOSSIP_ICON_TRAINER,                false,"是否秒满|cFFFFFF00制皮|r技能？",30000000},
+                {FUNC, "秒满->|cFF006400【裁缝】|r->|cFFB22222375级|r",                Stone.SY07,        GOSSIP_ICON_TRAINER,                false,"是否秒满|cFFFFFF00裁缝|r技能？",30000000},
+                {FUNC, "秒满->|cFF006400【锻造】|r->|cFFB22222375级|r",                Stone.SY08,        GOSSIP_ICON_TRAINER,                false,"是否秒满|cFFFFFF00锻造|r技能？",30000000},
+                {FUNC, "秒满->|cFF006400【附魔】|r->|cFFB22222375级|r",                Stone.SY09,        GOSSIP_ICON_TRAINER,                false,"是否秒满|cFFFFFF00附魔|r技能？",30000000},
+                {FUNC, "秒满->|cFF006400【珠宝】|r->|cFFB22222375级|r",                Stone.SY10,        GOSSIP_ICON_TRAINER,                false,"是否秒满|cFFFFFF00珠宝|r技能？",30000000},
+                {FUNC, "秒满->|cFF006400【铭文】|r->|cFFB22222375级|r",                Stone.SY11,        GOSSIP_ICON_TRAINER,                false,"是否秒满|cFFFFFF00铭文|r技能？",30000000},
+                {FUNC, "秒满->|cFF006400【烹饪】|r->|cFFB22222375级|r",                Stone.SY12,        GOSSIP_ICON_TRAINER,                false,"是否秒满|cFFFFFF00烹饪|r技能？",30000000},
+                {FUNC, "秒满->|cFF006400【急救】|r->|cFFB22222375级|r",                Stone.SY13,        GOSSIP_ICON_TRAINER,                false,"是否秒满|cFFFFFF00急救|r技能？",30000000},
+                {FUNC, "秒满->|cFF006400【钓鱼】|r->|cFFB22222375级|r",                Stone.SY14,        GOSSIP_ICON_TRAINER,                false,"是否秒满|cFFFFFF00钓鱼|r技能？",30000000}
+        },
+
+        [ZYMENU*0x10+3]={--声望秒满，具有收费金额参数，失败也会扣金币，因此需要在实现端判定是否返还
+                {FUNC, "秒满->|cFF006400【塞纳里奥远征队】|r->|cFFB22222声望|r",        Stone.SW01,        GOSSIP_ICON_TRAINER,                false,"是否秒满|cFFFFFF00塞纳里奥远征队|r声望？",50000000},
+                {FUNC, "秒满->|cFF006400【荣  耀  堡】|r->|cFFB22222声望|r",                Stone.SW02,        GOSSIP_ICON_TRAINER,                false,"是否秒满|cFFFFFF00荣耀堡|r声望，会导致萨尔玛敌对，确认？",50000000},
+                {FUNC, "秒满->|cFF006400【萨  尔  玛】|r->|cFFB22222声望|r",                Stone.SW03,        GOSSIP_ICON_TRAINER,                false,"是否秒满|cFFFFFF00萨尔玛|r声望，会导致荣耀堡敌对，确认？",50000000},
+                {FUNC, "秒满->|cFF006400【沙  塔  尔】|r->|cFFB22222声望|r",                Stone.SW04,        GOSSIP_ICON_TRAINER,                false,"是否秒满|cFFFFFF00沙塔尔|r声望？",50000000},
+                {FUNC, "秒满->|cFF006400【贫  民  窟】|r->|cFFB22222声望|r",                Stone.SW05,        GOSSIP_ICON_TRAINER,                false,"是否秒满|cFFFFFF00贫民窟|r声望？",50000000},
+                {FUNC, "秒满->|cFF006400【时光守护者】|r->|cFFB22222声望|r",                Stone.SW06,        GOSSIP_ICON_TRAINER,                false,"是否秒满|cFFFFFF00时光守护者|r声望？",50000000},
+                {FUNC, "秒满->|cFF006400【破碎残阳】|r->|cFFB22222声望|r",                        Stone.SW07,        GOSSIP_ICON_TRAINER,                false,"是否秒满|cFFFFFF00破碎残阳|r声望？",70000000},
+                {FUNC, "秒满->|cFF006400【星界财团】|r->|cFFB22222声望|r",                        Stone.SW08,        GOSSIP_ICON_TRAINER,                false,"是否秒满|cFFFFFF00星界财团|r声望？",70000000},
+                {FUNC, "秒满->|cFF006400【孢  子  村】|r->|cFFB22222声望|r",                Stone.SW09,        GOSSIP_ICON_TRAINER,                false,"是否秒满|cFFFFFF00孢子村|r声望？",70000000},
+                {FUNC, "秒满->|cFF006400【血帆海盗】|r->|cFFB22222声望|r",                        Stone.SW10,        GOSSIP_ICON_TRAINER,                false,"是否秒满|cFFFFFF00血帆海盗|r声望，可能会导致很多声望冷淡和敌对，确认？",100000000}
+        },

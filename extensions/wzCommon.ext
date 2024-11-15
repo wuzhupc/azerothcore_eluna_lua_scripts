@@ -1,0 +1,122 @@
+--[[
+Author: wuzhu
+Date: 2024-11-14 14:09:26
+LastEditTime: 2024-11-14 14:15:22
+FilePath: \Azerothcore\lua_scripts\wzCommon.lua
+Description: 
+Copyright (c) 2024 by WUZHUPC, All Rights Reserved. 
+--]]
+print(">>Script: wzCommon loading...")
+local wzCommon = {}
+
+-- 分割字符串
+function wzCommon.SplitString(inputstr, sep)
+    if sep == nil or sep=="" then
+        sep = ","
+    end
+    local t = {}
+    for str in string.gmatch(inputstr, "([^" .. sep .. "]+)") do
+        table.insert(t, str)
+    end
+    return t
+end
+
+--金钱转字符串，单位为铜币，100铜币为1银币，10000银币为1金币
+function wzCommon.MoneyToString(money,addcolor)
+    local result = ""
+    --计算金币
+    local gold = math.floor(money / 10000)
+    if gold > 0 then
+        result = result .. gold .. "金"
+    end
+    --计算银币
+    local silver = math.floor((money % 10000) / 100)
+    if silver > 0 then
+        result = result .. silver .. "银"
+    end
+    --计算铜币
+    local copper = money % 100
+    if copper > 0 then
+        result = result .. copper .. "铜"
+    end
+    if(result~="" and addcolor==true)then
+        return "|cffFFD700" .. result .. "|r"
+    end
+    return result
+end
+
+--发送标识位置
+function wzCommon.SendPOI(player, x, y, name)
+    --( x, y, icon, flags, data, iconText )
+    --https://www.azerothcore.org/wiki/points_of_interest
+    --https://www.azerothcore.org/pages/eluna/Player/GossipSendPOI.html
+    player:GossipSendPOI(math.modf(x), math.modf(y), 35, 99, 0, name)
+end
+
+--通过区域ID返回区域名称，所属地图名称
+function wzCommon.GetAreaInfo(areaId, defaultMapName)
+    local area = wzCommon["areatable"][areaId]
+    if not area then
+        return GetAreaName(areaId), defaultMapName
+    end
+    return area.name, area.mapName
+end
+
+function wzCommon.GetAreaId(mapId, x ,y, z)
+    local map = GetMapById(mapId)
+    if not map then
+        return nil
+    end
+    return map:GetAreaId(x, y, z)
+end
+
+function wzCommon.getAreaInfoByMapInfo(mapId, x, y, z)
+    local areaId = wzCommon.GetAreaId(mapId, x, y, z)
+    if not areaId then
+        local mapName = wzCommon["maptable"][mapId]
+        if not mapName then
+            return '<未知>', mapId
+        end
+        return '<未知>', mapName
+    end
+    return wzCommon.GetAreaInfo(areaId, '')
+end
+
+function wzCommon.LoadAreaTableCache()
+    print("[E-SQL wzCommon]: table areatable_dbc_base loading...")
+    wzCommon["areatable"] = {}
+    wzCommon["maptable"] = {}
+    if not (WorldDBQuery("SHOW TABLES LIKE 'areatable_dbc_base';")) then
+        print("[E-SQL wzCommon]: areatable_dbc_base table missing from world database.")
+        return
+    end
+    local Query = WorldDBQuery(
+        "SELECT adb.ID as aid,adb.ContinentID as mid,adb.ParentAreaID as paid,adb.AreaName_Lang_enCN as aname, mdb.MapName_Lang_enCN as mname   from areatable_dbc_base adb LEFT JOIN map_dbc_base mdb on adb.ContinentID = mdb.ID;")
+    if not Query then
+        print("[E-SQL wzCommon]: areatable_dbc_base table No results found.")
+        return
+    end
+    local mapcount = 0
+    repeat
+        local row = Query:GetRow()
+        wzCommon["areatable"][row["aid"]] = {
+            id = row["aid"],
+            mapId = row["mid"],
+            parentId = row["paid"],
+            name = row["aname"],
+            mapName = row["mname"]
+        }
+        if (not wzCommon["maptable"][row["mid"]]) then
+            mapcount = mapcount + 1
+            wzCommon["maptable"][row["mid"]] = row["mname"]
+        end
+    until not Query:NextRow()
+    print("[E-SQL wzCommon]: areatable_dbc_base table loaded.Loaded  Area:" ..
+        Query:GetRowCount() .. " results;Map: " .. mapcount .. " results.")
+end
+
+wzCommon.LoadAreaTableCache()
+
+print(">>Script: wzCommon loaded.")
+
+return wzCommon

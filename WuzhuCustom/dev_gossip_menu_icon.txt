@@ -1,0 +1,12 @@
+Name	ID	Description
+GOSSIP_ICON_CHAT	0	White chat bubble
+GOSSIP_ICON_VENDOR	1	Brown bag
+GOSSIP_ICON_TAXI	2	Flight
+GOSSIP_ICON_TRAINER	3	Book
+GOSSIP_ICON_INTERACT_1	4	Interaction wheel
+GOSSIP_ICON_INTERACT_2	5	Interaction wheel
+GOSSIP_ICON_MONEY_BAG	6	Brown bag with yellow dot (gold)
+GOSSIP_ICON_TALK	7	White chat bubble with black dots (...)
+GOSSIP_ICON_TABARD	8	Tabard
+GOSSIP_ICON_BATTLE	9	Two swords
+GOSSIP_ICON_DOT	10	Yellow dot

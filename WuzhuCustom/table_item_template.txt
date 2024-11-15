@@ -1,0 +1,409 @@
+item_template 表详解物品模板表，包含游戏里的所有物品；
+
+entry： 物品的唯一编号；
+
+class：物品类型
+    0 = 消耗品
+    1 = 容器
+    2 = 武器
+    3 = 珠宝
+    4 = 盔甲
+    5 = 试剂
+    6 = 弹药
+    7 = 商业物品(材料)
+    8 = 普通 （废弃）
+    9 = 食谱配方
+    10 = 金钱 （废弃）
+    11 = 箭弹药袋
+    12 = 任务物品
+    13 = 钥匙
+    14 = 永久(做废)
+    15 = 其它
+    16 = 雕文
+
+subclass：物品子类型
+  class是0=消耗品
+    0-消费品
+    1-毒药
+    2-炼金
+    3-瓶
+    4-卷轴
+    5-食物和水
+    6-物品附魔
+    7-绷带
+    8-其他
+  class是1=容器
+    0- 容器
+    1- 灵魂袋
+    2- 草药袋
+    3- 附魔材料袋
+    4- 工程学材料袋
+    5- 珠宝袋
+    6- 矿石袋
+    7- 制皮袋
+    8- 铭文袋
+  class是2=武器
+    0- 单手斧
+    1- 双手斧
+    2- 弓
+    3- 枪
+    4- 单手锤
+    5- 双手锤
+    6- 长柄武器
+    7- 单手剑
+    8- 双手剑
+    10- 法杖
+    11- 异种武器 单手
+    12- 异种武器 双手
+    13- 拳套
+    14- 锄头,铁锤
+    15- 匕首
+    16- 投掷武器
+    17- 矛
+    18- 弩
+    19- 魔杖
+    20- 鱼杆
+  class是3=珠宝
+    0- 红色
+    1- 蓝色
+    2- 黄色
+    3- 紫色
+    4- 绿色
+    5- 橙色
+    6- 原石
+    7- 简易
+    8- 棱彩
+  class是4=盔甲
+    0- 其它 戒指等
+    1- 布甲
+    2- 皮甲
+    3- 锁甲
+    4- 板甲
+    5- 小圆盾
+    6- 盾牌
+    7- 圣契
+    8- 神像
+    9- 图腾
+    10- 印章
+  class是5=试剂
+  class是6=弹药
+    0- 魔杖
+    1- 弩用
+    2- 弓用
+    3- 枪用
+    4- 投掷武器
+  class是7=商业物品(材料)
+    0- 商业物品(制造的)
+    1- 零件
+    2- 火药炸弹
+    3- 工程物品
+    4- 珠宝加工
+    5- 布料
+    6- 皮料
+    7- 金属或石头
+    8- 肉
+    9-药草
+    10- 元素
+    11- 其他
+    12- 附魔
+    13- 原材料
+    14- 护甲附魔
+    15- 武器附魔
+  class是9=配方
+    0- 书
+    1- 制皮
+    2- 裁缝
+    3- 工程学
+    4- 锻造
+    5- 烹饪
+    6- 炼金术
+    7- 急救
+    8- 付魔
+    9- 钩鱼
+    10 珠宝加工
+  class是11=弹药袋
+    0- 箭袋
+    1- 箭袋
+    2- 箭袋
+    3- 枪用弹药袋
+  class是12=任务
+  class是13=钥匙
+    0- 钥匙
+    1- 开锁工具
+  class是14=永久
+  class是15= 其他
+    0- 垃圾
+    1- 试剂
+    2- 宠物
+    3- 节日
+    4- 其他
+    5- 坐骑
+  class是15= 雕文
+    1- 战士
+    2- 圣骑士
+    3- 猎人
+    4- 潜行者
+    5- 牧师
+    6- 死亡骑士
+    7- 萨满
+    8- 法师
+    9- 术士
+    11- 德鲁伊
+
+SoundOverrideSubclass： 武器碰撞时的声音；
+name：物品名称
+displayid：物品模型ID
+Quality：品质
+    0 = 灰色 （粗糙）
+    1 = 白色 （普通）
+    2 = 绿色 （优秀）
+    3 = 蓝色 （精良）
+    4 = 紫色 （史诗）
+    5 = 橙色 （传说）
+    6 = 红色
+    7 = 暗金 （账号绑定，一般为传家宝）
+
+Flags：标记，可叠加
+    0- 未知
+    2- 魔法制造
+    4- 可打开的
+    8- 上面有绿色的“英雄”文字
+    16- 废弃物品
+    32- 除非用法术，否则不能被摧毁
+    64 = 马,设计图等
+    128- 装备时没有默认的30秒冷却
+    256- 未知
+    512- 包裹，可以盛放其他物品
+    1024- 未知
+    2048- 只有部分能掉落，不是全部
+    4096- 可退还
+    8192- 公会或竞技场登记表
+    16384- 未知，只有可以读的物品使用
+    32768- 未知
+    65536- 未知
+    131072- 未知
+    262144- 可勘探物品
+    524288- 装备唯一
+    1048576- 未知
+    2097152- 竞技场比赛中可用
+    4194304- 异常（游戏中的提示）
+    8388608- 变形时可用
+    16777216- 未知
+    33554432- 职业配方，只有当你符合条件时才会掉落
+    67108864- 竞技场不可用
+    134217728- 账号绑定（需要同时把flags设置为7）
+    268435456- 在触发标志时使用法术
+    536870912- 有效
+    1073741824- 未知
+    2147483648- 拾取绑定，可交易
+
+FlagsExtra：额外标识
+    1- 只用于部落
+    2- 只用于联盟
+    4- 当物品使用npc_vendor表的ExtendedCost字段时，还需要附带金钱才能购买
+    256- 该物品不用roll点
+    512- 取消roll点
+    16384- 普通标价
+    131072- 账号绑定
+    2097152- 不能被变形
+    4194304- 不能变形
+    8388608- 可以变形
+
+BuyCount： 商人出售列表中的物品堆叠数量，每次刷新后复原
+BuyPrice： 购买价格
+SellPrice： 出售价格
+
+InventoryType： 配带位置
+    0- 不能装备
+    1- 头部
+    2- 脖子
+    3- 肩
+    4- 衬衫
+    5- 胸
+    6- 腰
+    7- 裤子
+    8- 脚
+    9- 手腕
+    10- 手
+    11- 手指
+    12- 饰品
+    13- 武器
+    14- 副手 盾
+    15- 弓
+    16- 后背
+    17- 双手
+    18- 袋子
+    19- 战袍
+    20- 长袍
+    21- 主手
+    22- 副手
+    23- 可握持（书）
+    24- 弹药
+    25- 投掷物
+    26- 远程（魔杖、枪）
+    27- 箭袋
+    28- 遗物？
+
+AllowableClass 需要职业
+1 战士 2 圣骑士 4 猎人 8 盗贼 16 牧师  32 死亡骑士 64 萨满 128 法师 256 术士 1024 德鲁依
+AllowableRace 需要种族
+1 人类 2 兽人 4 矮人 8 暗夜精灵 16 亡灵 32 牛头人 64 侏儒 128 巨魔  512 血精灵  1024 德莱尼
+ItemLevel： 物品等级
+RequiredLevel： 使用的最小等级
+RequiredSkill： 需要商业类型  急救-129，烹饪-185，钓鱼-356，采矿-186，锻造-164，剥皮-393，制皮-165，裁缝-197，附魔-333，草药-182，炼金-171，工程-202，珠宝-755，铭文-773
+RequiredSkillRank： 商业技能等级 1-450
+requiredspell： 需要法术-参考spell.dbc第一列ID
+requiredhonorrank： 使用这物品的荣誉等级
+RequiredCityRank： 需要城市等级
+RequiredReputationFaction： 需要声望（阵营） 参考Faction.dbc第一列
+RequiredReputationRank： 需要声望等级  0-仇恨，1-敌对，2-冷漠，3-中立，4-友善，5-尊敬，6-崇敬，7-崇拜
+maxcount： 持有的最大数量
+stackable： 可叠加数量
+ContainerSlots： 背包有多少格
+StatsCount：绿字属性数量
+
+stat_type1：属性类型1
+    0-无，1-生命值，2-法力值，3-敏捷，4-力量，5-智力，6-精神，7-耐力，12-防御等级，13-躲闪等级，14-招架等级，15-盾牌格挡，16-近战命中，17-远程命中，18-法术命中，19-近战暴击，20-远程暴击，21-法术暴击，22-近战躲闪，23-远程躲闪，24-法术躲闪，25-近战暴击躲闪，26-远程暴击躲闪，27-法术暴击躲闪，28-近战攻击速度，29-远程攻击速度，30-法术攻击速度，31-命中等级，32-暴击等级，33-命中躲闪，34-暴击躲闪，35-韧性，36-急速攻击速度，37-精准等级，38-攻击强度，39-远程攻击强度，40-猎豹、熊、巨熊形态攻击强度，41-法术治疗效果，42-法术伤害效果，43-5秒回蓝，44-护甲穿透等级，45-法术强度，46-5秒回血，47-法术穿透，48-格挡值
+
+
+stat_value1：属性值1
+stat_type2: 属性类型2
+stat_value2:属性值2
+stat_type3:
+stat_value3:
+stat_type4:
+stat_value4:
+stat_type5:
+stat_value5:
+stat_type6:
+stat_value6:
+stat_type7:
+stat_value7:
+stat_type8:
+stat_value8:
+stat_type9:
+stat_value9:
+stat_type10:
+stat_value10:
+
+ScalingStatDistribution：缩放状态属性，一般用于传家宝；
+ScalingStatValue：缩放状态值，一般用于传家宝；
+
+dmg_min1：最小伤害1
+dmg_max1：最大伤害1
+dmg_type1：伤害类型1：
+伤害类型:
+dmg=0（0普通伤害）
+dmg=1（1神圣伤害）
+dmg=2（2火焰伤害）
+dmg=3（3自然伤害）
+dmg=4（4冰霜伤害）
+dmg=5（5阴影伤害）
+dmg=6（6奥术伤害）
+
+dmg_min2: 最小伤害2
+dmg_max2:  最大伤害2
+dmg_type2:  伤害类型2
+armor 护甲值
+holy_res： 神圣抗性
+fire_res： 火系抗性
+nature_res： 自然抗性
+frost_res： 冰霜抗性
+shadow_res： 暗影抗性
+arcane_res： 奥术抗性
+delay： 武器攻击速度(毫秒)
+ammo_type：弹药类型， 2- 弓箭，3- 子弹
+RangedModRange：远程攻击距离（远程武器必须填攻击距离，否则无法远程射击）
+
+spellid_1：法术编号（对应SPELL.DBC第一列）
+spelltrigger_1：法术触发类型，0-使用，1-装备生效（被动），2-击中时可能，4-灵魂石，5-马上使用，无延迟，6-学习法术编号
+spellcharges_1：使用次数，如果为0，表示无限使用；如果是负数，表示使用次数为0时就删除该物品；如果是正数，使用次数为0时不删除物品；
+spellppmRate_1：触发概率，每分钟触发多少次，spelltrigger_1必须为2
+spellcooldown_1：技能冷却时间
+spellcategory_1：技能族
+spellcategorycooldown_1：技能族冷却时间
+spellid_2:
+spelltrigger_2:
+spellcharges_2:
+spellppmRate_2
+spellcooldown_2:
+spellcategory_2:
+spellcategorycooldown_2:
+spellid_3:
+spelltrigger_3:
+spellcharges_3:
+spellppmRate_3
+spellcooldown_3:
+spellcategory_3:
+spellcategorycooldown_3:
+spellid_4:
+spelltrigger_4:
+spellcharges_4:
+spellppmRate_4
+spellcooldown_4:
+spellcategory_4:
+spellcategorycooldown_4:
+spellid_5:
+spelltrigger_5:
+spellcharges_5:
+spellppmRate_5
+spellcooldown_5:
+spellcategory_5:
+spellcategorycooldown_5:
+
+bonding： 绑定
+    0- 不绑定
+    1- 拾取绑定
+    2- 装备绑定
+    3- 使用绑定
+    4- 任务物品
+    5- 任务物品
+
+description： 物品的橙色文字说明，显示在物品面板下方
+PageText： 文字编号，参考page_text表的entry字段
+LanguageID： 语言编号，参考Languages.dbc文件；
+PageMaterial： 页面素材
+startquest： 接取的任务编号
+lockid： 锁编号，参考Lock.dbc；
+Material：物品材料， -1-消耗品（食物、试剂等），0-未定义，1-金属，2-木制品，3-液体，4-珠宝，5-锁甲，6-板甲，7-布甲，8-皮甲
+
+sheath：武器放置的位置（外观）
+    1- 双手，背在后面尖向下
+    2- 杖，背在后面尖向上
+    3- 单手，在旁边
+    4- 盾，在后边
+    5- 附魔棒
+    6- 拳套、火把、锄头等
+RandomProperty：随机属性，参考 item_enchantmeng_template 表的entry字段
+RandomSuffix：随机后缀，参考 item_enchantmeng_template 表的entry字段
+
+block： 格挡率
+itemset： 套装编号，参考 itemset.dbc；
+MaxDurability： 最大持久度（耐久）
+area：区域（在什么区域可以使用）
+Map：地图ID （在什么地图可以使用）
+BagFamily：如果物品是个包裹，这里定义包裹类型
+    0-无，1-箭袋，2-弹药袋，4-灵魂碎片，8-皮革用品，16-铭文袋，32-草药袋，64-附魔袋，128-工程袋，256-钥匙袋，512-珠宝袋，1024-矿石袋，2048-灵魂绑定，4096-宠物栏，8192-钱袋，16384-任务物品
+
+TotemCategory：参考TotemCategory.dbc；
+socketColer_1：宝石插槽颜色1， 1-多彩（官方一般用于带技能的），2-红色，4-黄色，8-蓝色，10-紫色，12-绿色，14-棱彩（除了多彩，其他颜色宝石都可以插入棱彩）
+sockContent_1：数量
+socketColer_2：宝石插槽颜色2
+sockContent_2：数量
+socketColer_3：宝石插槽颜色3
+sockContent_3：数量                                                      
+
+socketBonus：插槽奖励，对应SpellItemEnchantment.dbc第一列；
+GemProperties：镶嵌宝石 参考GemProperties.dbc；
+RequiredDisenchantSkill：附魔分解等级 1-450
+ArmorDamageModifier：护甲伤害调整
+duration：物品持续时间
+ItemLimitCategory：物品限制分类
+HolidayId：节日编号，参考Holidays.dbc；
+ScriptName：使用的脚本名称
+DisenchantID：附魔分解掉落ID，参考 Disenchant_loot_template表的entry字段；
+FoodType：食物类型 1-肉，2-鱼，3-芝士，4-面包，5-菌类，6-水果，7-生肉，8-生鱼
+minMoneyLoot：最小金钱掉落
+maxMoneyLoot：最大金钱掉落
+flagsCustom： 1-玩家下线也计时， 2-掉落时不检测任务状态， 4-点贪婪前遵守掉落规则
+VerifiedBuild：验证机制
