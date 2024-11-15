@@ -95,11 +95,11 @@ function Rewards.levelup(event, player, oldLevel)
     if reward then        
         for _, item in ipairs(reward.items) do
             player:AddItem(item.itemid, item.count)
-            player:SendWorldMessage("恭喜玩家"..name.."升到"..nowLevel.."级，获得升级奖励物品：|cFF0000FF"..item.name.." x "..item.count.."|r")
+            SendWorldMessage("恭喜玩家"..name.."升到"..nowLevel.."级，获得升级奖励物品：|cFF0000FF"..item.name.." x "..item.count.."|r")
         end
         if(reward.money and reward.money>0) then
             player:ModifyMoney(reward.money)
-            player:SendWorldMessage("恭喜玩家"..name.."升到"..nowLevel.."级，获得升级奖励金币："..wzCommon.MoneyToString(reward.money,true))
+            SendWorldMessage("恭喜玩家"..name.."升到"..nowLevel.."级，获得升级奖励金币："..wzCommon.MoneyToString(reward.money,true))
         end
     end
 end
