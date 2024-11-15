@@ -1,0 +1,2 @@
+# azerothcore_eluna_lua_scripts
+azerothcore eluna lua_scripts
