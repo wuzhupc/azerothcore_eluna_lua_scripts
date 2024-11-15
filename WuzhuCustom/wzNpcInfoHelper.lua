@@ -21,8 +21,8 @@ local NpcInfoHelper = {
     midNpcCreatureListSelect = 6, --creature列表选中
     midNpcEntryListSelect = 7,    --entry列表选中
     midNpcInfo = 10,              --选中的NPC信息
-    midNpcList = 15,              --NPC记录列表,
-    midNpcListSelect = 16,        --NPC记录列表-选中，相应的选中索引存储在
+    midQuestQueryID = 15,              --任务查询,
+    midQuestSelect = 16,        --任务查询结果页选中
 }
 
 function NpcInfoHelper.GetNowSelectNPCInfo(player)
@@ -158,8 +158,8 @@ function NpcInfoHelper.AddIdGossip(player, item, entry, guid)
     if not guid then
         player:GossipMenuAddItem(0, "返回", 0, NpcInfoHelper.midBack)
     end
-    player:SendAreaTriggerMessage("选中输入0=标识NPC位置,1=直接传送到此NPC,2=记录NPC信息,其他值为记录NPC信息且加上输入内容")
-    player:SendBroadcastMessage("选中输入0=标识NPC位置,1=直接传送到此NPC,2=记录NPC信息,其他值为记录NPC信息且加上输入内容")
+    player:SendAreaTriggerMessage("选中输入0=标识NPC位置,1=直接传送到此NPC")
+    player:SendBroadcastMessage("选中输入0=标识NPC位置,1=直接传送到此NPC")
     player:GossipSendMenu(1, item)
 end
 
@@ -171,7 +171,7 @@ function NpcInfoHelper.OnUse(event, player, item)
     player:GossipMenuAddItem(8, "NPC查询-ID方式", 0, NpcInfoHelper.midNpcQueryId, true)
     player:GossipMenuAddItem(8, "NPC查询-Name方式", 0, NpcInfoHelper.midNpcQueryName, true)
     player:GossipMenuAddItem(2, "NPC信息-当前选中", 0, NpcInfoHelper.midNpcInfo, false)
-    player:GossipMenuAddItem(3, "NPC记录查看位置", 0, NpcInfoHelper.midNpcList, false)
+    player:GossipMenuAddItem(3, "任务查询-ID方式", 0, NpcInfoHelper.midQuestQueryID, false)
     player:GossipSendMenu(1, item)
     return false
 end
@@ -208,12 +208,12 @@ function NpcInfoHelper.OnSelect(event, player, item, sender, intid, code, menuid
         return
     end
     if not lastOperId and intid == NpcInfoHelper.midNpcQueryName then
-        --TODO: 查询name
+        --查询name
         NpcInfoHelper.AddNameGossip(player, item, code)
         return
     end
-    if not lastOperId and intid == NpcInfoHelper.midNpcList then
-        --TODO: 记录列表
+    if not lastOperId and intid == NpcInfoHelper.midQuestQueryID then
+        --TODO: 任务ID查询
         return
     end
     if (lastOperId == NpcInfoHelper.midNpcQueryName) then
