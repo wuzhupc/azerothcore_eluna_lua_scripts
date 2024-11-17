@@ -1,3 +1,4 @@
+--修改任务物品需求
 update quest_template set  RequiredItemCount1 = ROUND(RequiredItemCount1/2) where RequiredItemCount1>=2;
 update quest_template set  RequiredItemCount2 = ROUND(RequiredItemCount2/2) where RequiredItemCount2>=2;
 update quest_template set  RequiredItemCount3 = ROUND(RequiredItemCount3/2) where RequiredItemCount3>=2;
