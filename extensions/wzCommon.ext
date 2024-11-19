@@ -46,10 +46,19 @@ function wzCommon.MoneyToString(money,addcolor)
 end
 
 --发送标识位置
-function wzCommon.SendPOI(player, x, y, name)
+function wzCommon.SendPOI(player, mapId, x, y, z, name)
     --( x, y, icon, flags, data, iconText )
     --https://www.azerothcore.org/wiki/points_of_interest
     --https://www.azerothcore.org/pages/eluna/Player/GossipSendPOI.html
+    --需要增加判断mapid是否一样，不一样标记不准确
+    --local playerAreaId = wzCommon.GetPlayerAreaId(player)
+    --local areaId = wzCommon.GetAreaId(mapId, x, y, 0)
+    local pmap = player:GetMap()
+    local pmapId = pmap:GetMapId()
+    if(mapId ~= pmapId)then
+        player:SendAreaTriggerMessage("需要在同一个地图上才能使用此功能")
+        return
+    end
     player:GossipSendPOI(math.modf(x), math.modf(y), 35, 99, 0, name)
 end
 
@@ -68,6 +77,13 @@ function wzCommon.GetAreaId(mapId, x ,y, z)
         return nil
     end
     return map:GetAreaId(x, y, z)
+end
+
+function wzCommon.GetPlayerAreaId(player)
+    local x, y, z = player:GetLocation()
+    local map = player:GetMap()
+    local mapId = map:GetMapId()
+    return wzCommon.GetAreaId(mapId, x, y, z)
 end
 
 function wzCommon.getAreaInfoByMapInfo(mapId, x, y, z)

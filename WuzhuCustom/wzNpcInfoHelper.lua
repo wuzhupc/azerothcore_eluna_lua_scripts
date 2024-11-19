@@ -6,10 +6,14 @@ local NpcInfoHelper = {
     itemEntry = 922005,
     creatureList = {}, --查询到的creature列表
     entryList = {},    --查询到的creatureTemplate列表
+    objectList = {},    --查询到的gameobject列表
+    objectTemplateList = {},    --查询到的gameobjectTemplate列表
     queryInfo = {
         ids = {},
         names = {},
         guids = {},
+        objectNames = {},
+        objectIds = {},
     },                            --最后输入查询的内容，包括：id,name,guid
     npcList = {},
     lastOper = {},                --最后操作记录lastOper[accountId] = {prevId=1,lastId=4,value="123"}
@@ -21,6 +25,8 @@ local NpcInfoHelper = {
     midNpcCreatureListSelect = 6, --creature列表选中
     midNpcEntryListSelect = 7,    --entry列表选中
     midNpcInfo = 10,              --选中的NPC信息
+    midObjectNameQuery = 13,        --object名称查询
+    midObjectIdQuery = 14,        --object id查询
     midQuestQueryID = 15,              --任务查询,
     midQuestSelect = 16,        --任务查询结果页选中
 }
@@ -50,6 +56,103 @@ end
 --记录NPC信息
 function NpcInfoHelper.RecordNpcInfo(player, createure, otherInfo)
 
+end
+
+--GameObjectce通过name查询
+function NpcInfoHelper.AddObjectNameGossip(player, item, name)
+    player:GossipClearMenu()
+    local accountId = player:GetGUIDLow()
+    local lastNames = NpcInfoHelper.queryInfo.objectNames[accountId]
+    if not lastNames or lastNames.name ~= name then
+        --未查过或查过但名字不同则重新查
+        --SELECT ct.entry, zhtw.name as twName,zhcn.name as cnName,ct.name as enName from gameobject_template as ct left join gameobject_template_locale as zhtw on ct.entry=zhtw.entry and zhtw.locale='zhTw' LEFT JOIN gameobject_template_locale as zhcn on ct.entry=zhcn.entry and zhcn.locale='zhCn'  where ct.`name` like '%巴尔洛%' or ct.entry in (SELECT entry from gameobject_template_locale where `Name` LIKE '%巴尔洛%' and  (locale='zhCn' or locale='zhTw' )) ORDER BY ct.entry
+        local sql ="SELECT ct.entry, zhtw.name as twName,zhcn.name as cnName,ct.name as enName from gameobject_template as ct left join gameobject_template_locale as zhtw on ct.entry=zhtw.entry and zhtw.locale='zhTw' LEFT JOIN gameobject_template_locale as zhcn on ct.entry=zhcn.entry and zhcn.locale='zhCn'  where ct.`name` like '%"..name.."%' or ct.entry in (SELECT entry from gameobject_template_locale where `Name` LIKE '%"..name.."%' and  (locale='zhCn' or locale='zhTw' )) ORDER BY ct.entry;"
+        local Query = WorldDBQuery(sql)
+        if not Query or Query:GetRowCount() == 0 then
+            player:SendAreaTriggerMessage("查询的名称'" .. name .. "'不存在")
+            player:GossipComplete()
+            return
+        end
+        NpcInfoHelper.queryInfo.objectNames[accountId] = { name = name, count = Query:GetRowCount() }
+        lastNames = NpcInfoHelper.queryInfo.objectNames[accountId]
+        NpcInfoHelper.objectTemplateList[accountId] = {}
+        local index = 1
+        repeat
+            local row = Query:GetRow()
+            NpcInfoHelper.objectTemplateList[accountId][index] = {
+                entry = row["entry"], twName = row["twName"], cnName = row["cnName"], enName = row["enName"]
+            }
+            index = index + 1
+        until not Query:NextRow() or index > NpcInfoHelper.queryLimit
+    end
+    local resultCount = lastNames.count
+    player:GossipMenuAddItem(0, "名字含'" .. name .. "'gameobject数:" .. resultCount, 0, NpcInfoHelper.midHome)
+    for k, v in pairs(NpcInfoHelper.objectTemplateList[accountId]) do
+        player:GossipMenuAddItem(3, v.entry .. NpcInfoHelper.GetNameStr(v.twName, v.cnName, v.enName), 0, k)
+    end
+    player:GossipSendMenu(1, item)
+end
+
+
+--通过entry方式查询Object
+function NpcInfoHelper.AddObjectGossip(player, item, entry)
+    player:GossipClearMenu()
+    local accountId = player:GetGUIDLow()
+    local lastIds = NpcInfoHelper.queryInfo.objectIds[accountId]
+    if not lastIds or lastIds.entry ~= entry then
+        --未查过或查过但entry不同则重新查
+        --SELECT guid,id,map,position_x,position_y,position_z,zhtw.name as twName,zhcn.name as cnName,ct.name as enName from gameobject left join gameobject_template_locale as zhtw on id=zhtw.entry and zhtw.locale='zhTw' LEFT JOIN gameobject_template_locale as zhcn on id=zhcn.entry and zhcn.locale='zhCn'LEFT JOIN gameobject_template as ct on id=ct.entry where id=3217
+        local sql =
+            "SELECT guid,id,map,position_x,position_y,position_z,zhtw.name as twName,zhcn.name as cnName,ct.name as enName from gameobject left join gameobject_template_locale as zhtw on id=zhtw.entry and zhtw.locale='zhTw' LEFT JOIN gameobject_template_locale as zhcn on id=zhcn.entry and zhcn.locale='zhCn'LEFT JOIN gameobject_template as ct on id=ct.entry where id=" ..
+            entry;
+        local Query = WorldDBQuery(sql)
+        if not Query then
+            player:SendAreaTriggerMessage("查询的ID:" .. entry .. "不存在object记录")
+            --不存在就自动返回到查询名称
+            local lastNames = NpcInfoHelper.queryInfo.objectNames[accountId]
+            if (lastNames) then
+                NpcInfoHelper.lastOper[accountId].lastId = NpcInfoHelper.midObjectNameQuery
+                NpcInfoHelper.AddObjectNameGossip(player, item, lastNames.name)
+                return
+            end
+            player:GossipComplete()
+            return
+        end
+        NpcInfoHelper.queryInfo.objectIds[accountId] = { entry = entry, count = Query:GetRowCount() }
+        lastIds = NpcInfoHelper.queryInfo.objectIds[accountId]
+        NpcInfoHelper.objectList[accountId] = {}
+
+        local index = 1
+        repeat
+            local row = Query:GetRow()
+            NpcInfoHelper.objectList[accountId][index] = {
+                guid = row["guid"],
+                entry = row["id"],
+                map = row["map"],
+                x = row["position_x"],
+                y = row["position_y"],
+                z =
+                    row["position_z"],
+                twName = row["twName"],
+                cnName = row["cnName"],
+                enName = row["enName"]
+            }
+            index = index + 1
+        until not Query:NextRow() or index > NpcInfoHelper.queryLimit
+    end
+
+    local resultCount = lastIds.count
+    local creature = NpcInfoHelper.objectList[accountId][1]
+    player:GossipMenuAddItem(0, NpcInfoHelper.GetCreatureNameStr(creature) ..
+        "(" .. creature.entry .. ",共" .. resultCount .. "个)", 0, NpcInfoHelper.midHome, false)
+    for k, v in pairs(NpcInfoHelper.objectList[accountId]) do
+        local areaName, mapName = wzCommon.getAreaInfoByMapInfo(v.map, v.x, v.y, v.z)
+        player:GossipMenuAddItem(3, v.guid .. "(" .. areaName .. "，" .. mapName .. ")", 0, k, true)
+    end
+    player:GossipMenuAddItem(0, "返回", 0, NpcInfoHelper.midBack)
+    player:SendAreaTriggerMessage("选中输入0=标识Object位置,1=直接传送到此Object")
+    player:SendBroadcastMessage("选中输入0=标识Object位置,1=直接传送到此Object")
+    player:GossipSendMenu(1, item)
 end
 
 --通过name方式查询
@@ -171,7 +274,8 @@ function NpcInfoHelper.OnUse(event, player, item)
     player:GossipMenuAddItem(8, "NPC查询-ID方式", 0, NpcInfoHelper.midNpcQueryId, true)
     player:GossipMenuAddItem(8, "NPC查询-Name方式", 0, NpcInfoHelper.midNpcQueryName, true)
     player:GossipMenuAddItem(2, "NPC信息-当前选中", 0, NpcInfoHelper.midNpcInfo, false)
-    player:GossipMenuAddItem(3, "任务查询-ID方式", 0, NpcInfoHelper.midQuestQueryID, false)
+    player:GossipMenuAddItem(3, "GameObject-Name方式", 0, NpcInfoHelper.midObjectNameQuery, true)
+    -- player:GossipMenuAddItem(3, "任务查询-ID方式", 0, NpcInfoHelper.midQuestQueryID, true)
     player:GossipSendMenu(1, item)
     return false
 end
@@ -212,8 +316,9 @@ function NpcInfoHelper.OnSelect(event, player, item, sender, intid, code, menuid
         NpcInfoHelper.AddNameGossip(player, item, code)
         return
     end
-    if not lastOperId and intid == NpcInfoHelper.midQuestQueryID then
-        --TODO: 任务ID查询
+    if not lastOperId and intid == NpcInfoHelper.midObjectNameQuery then
+        --对象名称查询
+        NpcInfoHelper.AddObjectNameGossip(player, item, code)
         return
     end
     if (lastOperId == NpcInfoHelper.midNpcQueryName) then
@@ -247,7 +352,7 @@ function NpcInfoHelper.OnSelect(event, player, item, sender, intid, code, menuid
         end
         --选中输入0=标识NPC位置,1=直接传送到此NPC,2=记录NPC信息,其他值为记录NPC信息且加上输入内容
         if code == "0" then
-            wzCommon.SendPOI(player, creature.x, creature.y, NpcInfoHelper.GetCreatureNameStr(creature))
+            wzCommon.SendPOI(player, creature.map, creature.x, creature.y, creature.z, NpcInfoHelper.GetCreatureNameStr(creature))
             player:GossipComplete()
             return
         elseif code == "1" then
@@ -258,6 +363,47 @@ function NpcInfoHelper.OnSelect(event, player, item, sender, intid, code, menuid
             NpcInfoHelper.RecordNpcInfo(player, creature)
         else
             NpcInfoHelper.RecordNpcInfo(player, creature, code)
+        end
+        player:GossipComplete()
+    end
+    if(lastOperId == NpcInfoHelper.midObjectNameQuery) then
+        local ot = NpcInfoHelper.objectTemplateList[accountId][intid]
+        if (not ot) then
+            player:SendAreaTriggerMessage("未能找到对应的gameobject_template")
+            player:GossipComplete()
+            return
+        end
+        NpcInfoHelper.lastOper[accountId].lastId = NpcInfoHelper.midObjectIdQuery
+        NpcInfoHelper.AddObjectGossip(player, item, ot.entry)
+        return
+    end
+    if(lastOperId == NpcInfoHelper.midObjectIdQuery) then
+        if intid == NpcInfoHelper.midBack then
+            local lastNames = NpcInfoHelper.queryInfo.objectNames[accountId]
+            if (not lastNames) then
+                player:SendAreaTriggerMessage("未知返回操作")
+                player:GossipComplete()
+            end
+            NpcInfoHelper.lastOper[accountId].lastId = NpcInfoHelper.midObjectNameQuery
+            NpcInfoHelper.AddObjectNameGossip(player, item, lastNames.name)
+            return
+        end
+        local obj = NpcInfoHelper.objectList[accountId][intid]
+        if (not obj) then
+            player:SendAreaTriggerMessage("未能找到对应guid的Object")
+            player:GossipComplete()
+            return
+        end
+        --选中输入0=标识Object位置,1=直接传送到此Object
+        if code == "0" then            
+            wzCommon.SendPOI(player, obj.map, obj.x, obj.y, obj.z, NpcInfoHelper.GetCreatureNameStr(obj))
+            player:GossipComplete()
+            return
+        elseif code == "1" then
+            player:Teleport(obj.map, obj.x, obj.y, obj.z+22.0, 0)
+            -- print(">>NpcInfoHelper: Teleport to Object:", obj.map, obj.x, obj.y, obj.z+25.0)
+            player:GossipComplete()
+            return
         end
         player:GossipComplete()
     end

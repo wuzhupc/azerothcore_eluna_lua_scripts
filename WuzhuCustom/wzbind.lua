@@ -103,9 +103,9 @@ function ItemWzBind.OnInputBindSelect(event, player, item, sender, intid, code, 
     if code == "0" then
         -- 0=标识绑定位置,1=使用原来名称,2=使用系统名称
         if (w.type == 1) then
-            wzCommon.SendPOI(player, w.posX, w.posY, w.name)
+            wzCommon.SendPOI(player, mapId, w.posX, w.posY, w.posZ, w.name)
         else
-            wzCommon.SendPOI(player, x, y, areaName)
+            wzCommon.SendPOI(player, mapId, x, y, z, areaName)
         end
         player:SendBroadcastMessage("已经在地图上标记绑定位置")
         player:GossipComplete()
