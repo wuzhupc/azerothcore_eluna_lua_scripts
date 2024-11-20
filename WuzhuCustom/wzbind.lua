@@ -45,13 +45,13 @@ function ItemWzBind.AddBindGossip(player, item, nowpage)
     if (nowpage > 1) then
         player:GossipMenuAddItem(0, "<上一页>", 0, ItemWzBind.menuidPageBase + nowpage - 1)
     end
+    if (nowpage < ItemWzBind.pageCount) then
+        player:GossipMenuAddItem(0, "<下一页>", 0, ItemWzBind.menuidPageBase + nowpage + 1)
+    end
     local datas = ItemWzBind.GetPageBindDatas(player, nowpage)
     for k, v in pairs(datas) do
         -- icon, msg, sender, intid, code, popup, money
         player:GossipMenuAddItem(3, "<绑定>" .. v.name, 0, v.index, true)
-    end
-    if (nowpage < ItemWzBind.pageCount) then
-        player:GossipMenuAddItem(0, "<下一页>", 0, ItemWzBind.menuidPageBase + nowpage + 1)
     end
     if (nowpage ~= 1) then
         player:GossipMenuAddItem(0, "<返回首页>", 0, ItemWzBind.menuidHome)
@@ -169,13 +169,13 @@ function ItemWzBind.OnTeleportGoosip(player, item, nowpage)
     if (nowpage > 1) then
         player:GossipMenuAddItem(0, "<上一页>", 0, ItemWzBind.menuidPageBase + nowpage - 1)
     end
+    if (nowpage < ItemWzBind.pageCount) then
+        player:GossipMenuAddItem(0, "<下一页>", 0, ItemWzBind.menuidPageBase + nowpage + 1)
+    end
     local datas = ItemWzBind.GetPageBindDatas(player, nowpage)
     for k, v in pairs(datas) do
         -- icon, msg, sender, intid, code, popup, money
         player:GossipMenuAddItem(2, "<传送>" .. v.name, 0, v.index, false, "确定要传送到" .. v.name .. "吗？")
-    end
-    if (nowpage < ItemWzBind.pageCount) then
-        player:GossipMenuAddItem(0, "<下一页>", 0, ItemWzBind.menuidPageBase + nowpage + 1)
     end
     if (nowpage ~= 1) then
         player:GossipMenuAddItem(0, "<返回首页>", 0, ItemWzBind.menuidHome)
