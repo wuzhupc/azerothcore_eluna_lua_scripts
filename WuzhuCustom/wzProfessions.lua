@@ -147,9 +147,9 @@ local Professionser = {
     menuid_back = 1,                                          --返回上一级
     menuid_complete = 2,                                      --完成
 
-    menuid_advance_1 = 3,                                     --进阶1
-    menuid_advance_5 = 4,                                     --进阶5
-    menuid_advance_10 = 5,                                    --进阶10
+    menuid_advance_1 = 3,                                     --进阶10
+    menuid_advance_5 = 4,                                     --进阶50
+    menuid_advance_10 = 5,                                    --进阶100
     menuid_advance_nowlevelmax = 6,                           --进阶当前级别满级
     menuid_learn = 7,                                         --学习
     menuid_npc = 8,                                           --NPC
@@ -259,28 +259,28 @@ function Professionser.OnGossipSelect(event, player, unit, sender, intid, code)
                 local nextLevelValue = Professionser.skills_level_maxvalues[level] - nowSkillValue
                 if (nextLevelValue >= Professionser.menuid_advance_1) then
                     player:GossipMenuAddItem(3,
-                        "技能点数+1" ..
-                        wzCommon.MoneyToString(Professionser.skills_level_maxvalues[level] * Professionser.money_base,
+                        "技能点数+10" ..
+                        wzCommon.MoneyToString(10 * Professionser.skills_level_maxvalues[level] * Professionser.money_base,
                             true), 0,
                         GetMenuidAdvance(intid, Professionser.menuid_advance_1), false, '需要花费的铜币',
-                        1 * Professionser.skills_level_maxvalues[level] * Professionser.money_base)
+                        10 * Professionser.skills_level_maxvalues[level] * Professionser.money_base)
                 end
                 if (nextLevelValue >= Professionser.menuid_advance_5) then
                     player:GossipMenuAddItem(3,
-                        "技能点数+5" ..
+                        "技能点数+50" ..
                         wzCommon.MoneyToString(
-                        5 * Professionser.skills_level_maxvalues[level] * Professionser.money_base, true),
+                        50 * Professionser.skills_level_maxvalues[level] * Professionser.money_base, true),
                         0,
                         GetMenuidAdvance(intid, Professionser.menuid_advance_5), false, '需要花费的铜币',
-                        5 * Professionser.skills_level_maxvalues[level] * Professionser.money_base)
+                        50 * Professionser.skills_level_maxvalues[level] * Professionser.money_base)
                 end
                 if (nextLevelValue >= Professionser.menuid_advance_10) then
                     player:GossipMenuAddItem(3,
-                        "技能点数+10" ..
+                        "技能点数+100" ..
                         wzCommon.MoneyToString(
-                        10 * Professionser.skills_level_maxvalues[level] * Professionser.money_base, true), 0,
+                        100 * Professionser.skills_level_maxvalues[level] * Professionser.money_base, true), 0,
                         GetMenuidAdvance(intid, Professionser.menuid_advance_10), false, '需要花费的铜币',
-                        10 * Professionser.skills_level_maxvalues[level] * Professionser.money_base)
+                        100 * Professionser.skills_level_maxvalues[level] * Professionser.money_base)
                 end
                 if (nextLevelValue > 0) then
                     --icon, msg, sender, intid, code, popup, money
