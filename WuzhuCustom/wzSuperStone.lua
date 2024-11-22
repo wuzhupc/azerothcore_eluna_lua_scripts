@@ -58,6 +58,7 @@ local ST                     = {
     NPCID1 = 922001, --召唤传送师
     NPCID2 = 922002, --召唤技能师
     NPCID3 = 922003, --召唤技能传送师
+    NPCID6 = 922006, --召唤超级商人
     --商业技能训练师
     NPCID501 = 28703,
     NPCID501A = 33630,
@@ -141,6 +142,11 @@ end
 
 function ST.SummonSuperProfessionsNPC(player) --召唤商业训练师
     ST.SummonNPC(player, ST.NPCID3)
+end
+
+
+function ST.SummonSuperVendorNPC(player) --召唤超级商人
+    ST.SummonNPC(player, ST.NPCID6)
 end
 
 --商业技能师
@@ -315,13 +321,13 @@ local Menu = {
         { FUNC, "传送→位置", Stone.GoHome, GOSSIP_ICON_INTERACT_1, false, "是否传送回|cFFF0F000记录位置|r ?" },
         { FUNC, "记录←位置", Stone.SetHome, GOSSIP_ICON_INTERACT_2, false, "是否记录当前|cFFF0F000位置|r ?" },
         { MENU, "地图传送", TPMENU, GOSSIP_ICON_TAXI },
-        { FUNC, "修理装备", Stone.RepairAll, GOSSIP_ICON_MONEY_BAG, false, "需要花费金币修理装备 ?" },
+        -- { FUNC, "修理装备", Stone.RepairAll, GOSSIP_ICON_MONEY_BAG, false, "需要花费金币修理装备 ?" },
         { FUNC, "在线银行", Stone.OpenBank, GOSSIP_ICON_MONEY_BAG },
         { FUNC, "空中邮箱", Stone.OpenMailBox, GOSSIP_ICON_CHAT },
         -- { FUNC, "在线拍卖行", Stone.OpenAutionHouse, GOSSIP_ICON_MONEY_BAG }, --目前会出现搜索不出物品
         -- { FUNC, "召唤传送师", ST.SummonTeleporterSNPC, GOSSIP_ICON_TAXI },
         -- { FUNC, "召唤技能师", ST.SummonSpellerRNPC, GOSSIP_ICON_TRAINER },
-        -- { FUNC, "召唤超级商业训练师", ST.SummonSuperProfessionsNPC, GOSSIP_ICON_TRAINER },
+        { FUNC, "召唤超级商人", ST.SummonSuperVendorNPC, GOSSIP_ICON_MONEY_BAG },
         { MENU, "召唤商业训练师", PTMENU, GOSSIP_ICON_TRAINER },
         { MENU, "其他功能", MMENU + 0x10, GOSSIP_ICON_CHAT },
         -- { FUNC, "强制脱离战斗", Stone.OutCombat, GOSSIP_ICON_DOT },
