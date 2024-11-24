@@ -15,21 +15,31 @@ local wzVendor    = {
 	--GOSSIP_ICON 菜单图标
 	GOSSIP_ICON_CHAT   = 0, -- 对话
 	GOSSIP_ICON_VENDOR = 1, -- 货物
+	VENDOR_ENTRY_START = 922700, --商人entry起始
 	GOODS              = { --货物id号
 		[0] = {          --菜单
-			{ "职业雕文", 1 },
-			{ "|cff660000常用钥匙|r", wzVendor_OT + 0x10 },
-			{ "|cff660000常用药剂|r", wzVendor_OT + 0x20 },
-			{ "|cff0909FF烹饪食品|r", wzVendor_OT + 0xb0 },
-			{ "|cffFFFFFF其它辅助类|r", wzVendor_OT + 0x30 },
-			{ "|cff008000普通宝石|r", wzVendor_OT + 0x40 },
-			{ "|cff0000FF高级宝石|r", wzVendor_OT + 0x50 },
-			{ "|cff0000FF特殊宝石|r", wzVendor_OT + 0x55 },
-			{ "|cff990000材料物品1 [60级矿石类]|r", wzVendor_OT + 0x60 },
-			{ "|cff990000材料物品2 [60级草药类]|r", wzVendor_OT + 0x70 },
-			{ "|cff990000材料物品3 [60级皮革类]|r", wzVendor_OT + 0x80 },
-			{ "|cff990000材料物品4 [60级布匹类]|r", wzVendor_OT + 0xa0 },
-			{ "|cff0909FF传家宝装备|r", wzVendor_OT + 0x90 },
+			{ "|cff1100ff零件商品|r", 922701 },
+			{ "|cff2211ff布匹材料|r", 922705 },
+			{ "|cff3311ff皮革材料|r", 922706 },
+			{ "|cff4422ff矿石材料|r", 922707 },
+			{ "|cff5522ff肉类材料|r", 922708 },
+			{ "|cff6633ff草药材料|r", 922709 },
+			{ "|cff7733ff元素材料|r", 922710 },
+			{ "|cff8844ff其他商品|r", 922711 },
+			{ "|cff9944ff附魔材料|r", 922712 },
+			-- { "职业雕文", 1 },
+			-- { "|cff660000常用钥匙|r", wzVendor_OT + 0x10 },
+			-- { "|cff660000常用药剂|r", wzVendor_OT + 0x20 },
+			-- { "|cff0909FF烹饪食品|r", wzVendor_OT + 0xb0 },
+			-- { "|cffFFFFFF其它辅助类|r", wzVendor_OT + 0x30 },
+			-- { "|cff008000普通宝石|r", wzVendor_OT + 0x40 },
+			-- { "|cff0000FF高级宝石|r", wzVendor_OT + 0x50 },
+			-- { "|cff0000FF特殊宝石|r", wzVendor_OT + 0x55 },
+			-- { "|cff990000材料物品1 [60级矿石类]|r", wzVendor_OT + 0x60 },
+			-- { "|cff990000材料物品2 [60级草药类]|r", wzVendor_OT + 0x70 },
+			-- { "|cff990000材料物品3 [60级皮革类]|r", wzVendor_OT + 0x80 },
+			-- { "|cff990000材料物品4 [60级布匹类]|r", wzVendor_OT + 0xa0 },
+			-- { "|cff0909FF传家宝装备|r", wzVendor_OT + 0x90 },
 		},
 
 		[wzVendor_OT + 0xb0] = { --烹饪食品
@@ -655,17 +665,22 @@ function wzVendor.OnSelect(event, player, unit, sender, intid, code, menu_id) --
 	if (text) then
 		unit:SendUnitSay(text, 0)
 	end
-	player:GossipComplete() --关闭菜单
 	if (intid < 0x10) then
 		wzVendor.AddMenu(player, unit, intid)
+	elseif(intid>wzVendor.VENDOR_ENTRY_START) then
+		player:SendListInventory(unit,intid)
 	else
+		player:GossipComplete() --关闭菜单
 		local entry = unit:GetEntry()
-		VendorRemoveAllItems(entry)
-		local goods = wzVendor.GOODS[intid] or {}
+		--https://github.com/azerothcore/mod-eluna/issues/199
+		-- VendorRemoveAllItems(entry) --目前此方法会导致crash
+		local goods = {}--wzVendor.GOODS[intid] or {}
+		print(#goods)
 		for k, v in pairs(goods) do
 			--AddVendorItem(entry, item, maxcount, incrtime, extendedcost )
 			--incrtime Combined with maxcount, incrtime tells how often (in seconds) the vendor list is refreshed and the limited Item copies are restocked.
 			--extendedcost:Unique cost of an Item, such as conquest points for example.
+			-- print(entry..'   goods:'..v)
 			AddVendorItem(entry, v, 0, 0, 0)
 		end
 		player:SendListInventory(unit)
