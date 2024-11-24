@@ -61,3 +61,7 @@ WHERE
     DELETE from npc_vendor where entry = 922712;
 	INSERT INTO npc_vendor(entry,slot,item,maxcount,incrtime,ExtendedCost,VerifiedBuild) SELECT 922712 as entry, 0 as slot, entry as item,0 as maxcount,0 as incrtime,0 as ExtendedCost,0 as VerifiedBuild from item_template where class = 7 and subclass = 12 and Quality!=0 and BuyPrice>0 and `name` not like '%Deprecated%' and FlagsExtra!=8192;
 
+--钥匙
+    DELETE from npc_vendor where entry = 923300;
+	INSERT INTO npc_vendor(entry,slot,item,maxcount,incrtime,ExtendedCost,VerifiedBuild) SELECT 923300 as entry, 0 as slot, entry as item,0 as maxcount,0 as incrtime,0 as ExtendedCost,0 as VerifiedBuild from item_template where class = 13 and Quality!=0 and  `name` not like '%Deprecated%';
+
