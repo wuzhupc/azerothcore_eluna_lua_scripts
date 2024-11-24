@@ -1,16 +1,16 @@
 
 class
 ID	Value	Name
-1	1	Warrior
-2	2	Paladin
-3	4	Hunter
-4	8	Rogue
-5	16	Priest
-6	32	Death Knight
-7	64	Shaman
-8	128	Mage
-9	256	Warlock
-11	1024	Druid
+1	1	Warrior 战士
+2	2	Paladin 圣骑士
+3	4	Hunter  猎人
+4	8	Rogue   盗贼
+5	16	Priest   牧师
+6	32	Death Knight    死亡骑士
+7	64	Shaman  萨满
+8	128	Mage    法师
+9	256	Warlock 术士
+11	1024	Druid 德鲁伊
 
 race 
 ID	Value	Name

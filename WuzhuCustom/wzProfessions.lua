@@ -353,11 +353,11 @@ function Professionser.OnGossipSelect(event, player, unit, sender, intid, code)
         local nextLevelValue = Professionser.skills_level_maxvalues[level] - nowSkillValue
         local advance = 0
         if (menuid == Professionser.menuid_advance_1) then
-            advance = 1
-        elseif (menuid == Professionser.menuid_advance_5) then
-            advance = 5
-        elseif (menuid == Professionser.menuid_advance_10) then
             advance = 10
+        elseif (menuid == Professionser.menuid_advance_5) then
+            advance = 50
+        elseif (menuid == Professionser.menuid_advance_10) then
+            advance = 100
         elseif (menuid == Professionser.menuid_advance_nowlevelmax) then
             advance = nextLevelValue
         end
