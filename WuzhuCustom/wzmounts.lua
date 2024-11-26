@@ -60,6 +60,17 @@ function ItemWzMounts.OnSelect(event, player, item, sender, intid, code)
         player:GossipSendMenu(1, item)
     elseif(t[intid]["type"] == 2 ) then
         player:AddAura(t[intid]["spell"], player)
+        player:GossipComplete()    
+    else
+        --随机取一个对应类型的坐骑
+        local rselitems = ItemWzMounts.GetRandomOptions(t[intid]["type"], 1)
+        print("[ItemWzMounts]: "..#rselitems..' intid:'..intid..' type:'..t[intid]["type"])
+        if(#rselitems > 0) then
+            for k,v in pairs(rselitems) do
+                player:AddAura(v["spell"], player)
+                break
+            end
+        end
         player:GossipComplete()
     end
 end
@@ -71,7 +82,7 @@ function ItemWzMounts.LoadCache()
         return
     end
 
-    local Query = WorldDBQuery("SELECT * FROM eluna_wzmounts;")
+    local Query = WorldDBQuery("select * from eluna_wzmounts ORDER BY parent,`order`;")
     if not (Query) then
         print("[E-SQL ItemWzMounts]: eluna_wzmounts table No results found.")
         return

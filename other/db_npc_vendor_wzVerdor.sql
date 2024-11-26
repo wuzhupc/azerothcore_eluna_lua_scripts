@@ -62,6 +62,40 @@ WHERE
 	INSERT INTO npc_vendor(entry,slot,item,maxcount,incrtime,ExtendedCost,VerifiedBuild) SELECT 922712 as entry, 0 as slot, entry as item,0 as maxcount,0 as incrtime,0 as ExtendedCost,0 as VerifiedBuild from item_template where class = 7 and subclass = 12 and Quality!=0 and BuyPrice>0 and `name` not like '%Deprecated%' and FlagsExtra!=8192;
 
 --钥匙
-    DELETE from npc_vendor where entry = 923300;
-	INSERT INTO npc_vendor(entry,slot,item,maxcount,incrtime,ExtendedCost,VerifiedBuild) SELECT 923300 as entry, 0 as slot, entry as item,0 as maxcount,0 as incrtime,0 as ExtendedCost,0 as VerifiedBuild from item_template where class = 13 and Quality!=0 and  `name` not like '%Deprecated%';
 
+SELECT
+	il.`Name` AS twName,item_template.*
+FROM
+	item_template
+	LEFT JOIN item_template_locale AS il ON il.ID = entry 
+	AND il.locale = 'zhTw' 
+WHERE
+	class = 13  and Quality!=0 and flags not in (2048,2112)  and item_template.`name` not like '%Deprecated%' and item_template.`name` not like '%UNUSED%' and il.`name`!='';
+
+	SELECT 923300 as entry, 0 as slot, entry as item,0 as maxcount,0 as incrtime,0 as ExtendedCost,0 as VerifiedBuild from item_template LEFT JOIN item_template_locale AS il ON il.ID = entry 
+	AND il.locale = 'zhTw'  where class = 13 and Quality!=0 and flags not in (2048,2112) and  item_template.`name` not like '%Deprecated%' and item_template.`name` not like '%UNUSED%' and il.`name`!='';
+
+    DELETE from npc_vendor where entry = 923300;
+	INSERT INTO npc_vendor(entry,slot,item,maxcount,incrtime,ExtendedCost,VerifiedBuild) SELECT 923300 as entry, 0 as slot, entry as item,0 as maxcount,0 as incrtime,0 as ExtendedCost,0 as VerifiedBuild from item_template LEFT JOIN item_template_locale AS il ON il.ID = entry 
+	AND il.locale = 'zhTw'  where class = 13 and Quality!=0 and flags not in (2048,2112) and  item_template.`name` not like '%Deprecated%' and item_template.`name` not like '%UNUSED%' and il.`name`!='';
+
+	--class 3 宝石  subclass 7 简单宝石
+	SELECT
+	entry,class,subclass,item_template.name, il.`Name` AS twName,Flags,FlagsExtra, Quality,BuyCount,BuyPrice,SellPrice
+FROM
+	item_template
+	LEFT JOIN item_template_locale AS il ON il.ID = entry 
+	AND il.locale = 'zhTw' 
+WHERE
+	class = 3 
+	AND subclass = 7 and Quality!=0 and BuyPrice>0 and item_template.`name` not like '%Deprecated%' and FlagsExtra!=8192;
+--class 16 雕文  subclass 对应职业
+	SELECT
+	entry,class,subclass,item_template.name, il.`Name` AS twName,Flags,FlagsExtra, Quality,BuyCount,BuyPrice,SellPrice
+FROM
+	item_template
+	LEFT JOIN item_template_locale AS il ON il.ID = entry 
+	AND il.locale = 'zhTw' 
+WHERE
+	class = 16 
+	AND subclass = 1 and Quality!=0 and BuyPrice>0 and item_template.`name` not like '%Deprecated%' and FlagsExtra!=8192;
