@@ -1,0 +1,21 @@
+
+随机小伙伴宏
+/run DismissCompanion("CRITTER"); CallCompanion("CRITTER", random(GetNumCompanions("CRITTER")));
+
+随机坐骑宏
+/run C_MountJournal.SummonByID(0)
+
+/run local_, p=C_PetJournal.FindPetIDByName("阳焰瓦格里");s=C_PetJournal.GetSummonedPetGUID() if s==nil or s~=p then C_PetJournal.SummonPetByGUID(p) end
+这是在无宠物情况下召唤瓦格里，但是当前有宠物但不是瓦格里的情况亦切换宠物至瓦格里
+
+召唤指定名字的小宠物(非猎人宠物)
+宠物不存在时召唤，存在时不执行操作
+宏中“唱歌的向日葵”修改为你想召唤的宠物名
+支持“默认名字”与“自定义名字”
+/脚本 local c=C_PetJournal;local _,i=c.FindPetIDByName("唱歌的向日葵");s=c.GetSummonedPetGUID() if s~=i then c.SummonPetByGUID(i)end
+
+第二版，宠物不存在时召唤随机宠物，存在时不执行操作。
+/脚本 local c=C_PetJournal;local n=c.GetNumPets()if n>0 and not c.GetSummonedPetGUID()then c.SummonPetByGUID(c.GetPetInfoByIndex(math.random(n)))end
+
+第三版，宠物不存在时召唤偏好的随机宠物，存在时不执行操作。
+/脚本 local c=C_PetJournal; local f={};local n=c.GetNumPets();for i=1,n do local _, _, _, _, _, x=c.GetPetInfoByIndex(i);if x then f[#f+1]=c.GetPetInfoByIndex(i)end end;if not c.GetSummonedPetGUID()and #f>0 then c.SummonPetByGUID(f[math.random(#f)])end

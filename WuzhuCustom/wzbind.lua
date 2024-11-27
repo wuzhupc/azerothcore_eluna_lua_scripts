@@ -67,8 +67,8 @@ function ItemWzBind.OnInputBindUse(event, player, item)
     end
     player:GossipClearMenu()
     ItemWzBind.LoadCache(player)
-    player:SendAreaTriggerMessage("输入0=标识绑定位置,1=使用原来名称,2=使用系统名称")
-    player:SendBroadcastMessage("输入0=标识绑定位置,1=使用原来名称,2=使用系统名称")
+    player:SendAreaTriggerMessage("输入0=标识绑定位置,1=使用系统名称,2=使用原来名称")
+    player:SendBroadcastMessage("输入0=标识绑定位置,1=使用系统名称,2=使用原来名称")
     ItemWzBind.AddBindGossip(player, item, 1)
     return false
 end
@@ -101,7 +101,7 @@ function ItemWzBind.OnInputBindSelect(event, player, item, sender, intid, code, 
     local areaId = map:GetAreaId(x, y, z)
     local areaName, mapName = wzCommon.GetAreaInfo(areaId, map:GetName())
     if code == "0" then
-        -- 0=标识绑定位置,1=使用原来名称,2=使用系统名称
+        -- 0=标识绑定位置,1=使用系统名称,2=使用原来名称
         if (w.type == 1) then
             wzCommon.SendPOI(player, mapId, w.posX, w.posY, w.posZ, w.name)
         else
@@ -111,11 +111,12 @@ function ItemWzBind.OnInputBindSelect(event, player, item, sender, intid, code, 
         player:GossipComplete()
         return
     end
-    if code == "1" and w and w.name then
-        -- 1时使用原来名称，原来名称没有使用新的
-        areaName = w.name
-    elseif code ~= "2" then
-        areaName = code
+    local title = areaName .. "(" .. mapName .. ")"
+    if code == "2" and w and w.name then
+        -- 2时使用原来名称，原来名称没有使用新的
+        title = w.name
+    elseif code ~= "1" then
+        title = code .. "(" .. mapName .. ")"
     end
     if (map:IsArena() or map:IsBattleground() or map:IsRaid()) then
         player:SendBroadcastMessage("战场及副本不能绑定位置")
@@ -123,27 +124,15 @@ function ItemWzBind.OnInputBindSelect(event, player, item, sender, intid, code, 
         -- 判断是否已经绑定,如果已经绑定则更新,否则插入
         if (w.type == 1) then
             local sql = "UPDATE `eluna_wzbind` SET `name` = '" ..
-                areaName ..
-                "(" ..
-                mapName ..
-                ")', `mapId` = " ..
-                mapId ..
-                ", `posX` = " ..
-                x ..
-                ", `posY` = " ..
-                y ..
-                ", `posZ` = " ..
+                title .. "', `mapId` = " .. mapId .. ", `posX` = " .. x .. ", `posY` = " .. y .. ", `posZ` = " ..
                 z .. ", `orientation` = " .. o .. " WHERE `guid` = " .. accountId .. " AND `index` = " .. w.index .. ";"
             print("[E-SQL WZBind]:" .. sql)
             CharDBExecute(sql)
         else
             local insertSql =
                 "INSERT INTO `eluna_wzbind` ( `guid`, `index`, `name`, `mapId`, `posX`, `posY`, `posZ`, `orientation` ) VALUES (" ..
-                accountId ..
-                ", " ..
-                w.index ..
-                ", '" ..
-                areaName .. "(" .. mapName .. ")', " .. mapId .. ", " .. x .. ", " .. y .. ", " .. z .. ", " .. o .. ");"
+                accountId .. ", " .. w.index .. ", '" ..
+                title .. "', " .. mapId .. ", " .. x .. ", " .. y .. ", " .. z .. ", " .. o .. ");"
             print("[E-SQL WZBind]:" .. insertSql)
             CharDBExecute(insertSql)
         end
@@ -151,7 +140,7 @@ function ItemWzBind.OnInputBindSelect(event, player, item, sender, intid, code, 
         ItemWzBind[accountId][intid] = {
             type = 1,
             index = intid,
-            name = areaName .. "(" .. mapName .. ")",
+            name = title,
             guid = accountId,
             mapId = mapId,
             posX = x,
@@ -159,7 +148,7 @@ function ItemWzBind.OnInputBindSelect(event, player, item, sender, intid, code, 
             posZ = z,
             orientation = o
         }
-        player:SendBroadcastMessage("绑定位置--" .. areaName .. "(" .. mapName .. ")--成功")
+        player:SendBroadcastMessage("绑定位置--" .. title .. "--成功")
     end
     player:GossipComplete()
 end
