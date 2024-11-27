@@ -66,7 +66,7 @@ function NpcInfoHelper.addHistory(player, type, title, query)
     local history = NpcInfoHelper.history[accountId]
     --判断type和key是否已经存在，存在就不添加
     for i, v in pairs(history) do
-        if v.type == type and v.key == key then
+        if v.type == type and v.query == query then
             return
         end
     end
