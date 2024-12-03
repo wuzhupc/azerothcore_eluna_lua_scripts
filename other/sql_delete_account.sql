@@ -61,3 +61,4 @@ select guid from characters where account not in
 
 DELETE from characters where account not in 
 (SELECT id from acore_auth.account);
+

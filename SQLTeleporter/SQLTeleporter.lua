@@ -28,13 +28,18 @@ function Teleporter.OnSelect(event, player, unit, sender, intid, code)
     if(intid == 0) then -- Special handling for "Back" option in case parent is 0
         Teleporter.OnHello(event, player, unit)
     elseif(t[intid]["type"] == 1) then
+        local datas = {}
         -- Hacky loops, but I want the results to be sorted damnit
         for i = 1, 2 do
             for k, v in pairs(t) do
                 if(v["parent"] == intid and v["type"] == i and (player:GetTeam() == v["faction"] or v["faction"] == -1)) then
-                    player:GossipMenuAddItem(v["icon"], v["name"], 0, k)
+                    table.insert(datas, v)
                 end
             end
+        end
+        table.sort(datas, function(a, b) return a["id"] < b["id"] end)
+        for k, v in pairs(datas) do
+            player:GossipMenuAddItem(v["icon"], v["name"], 0, v["id"])
         end
         player:GossipMenuAddItem(7, "[返回]", 0, t[intid]["parent"])
         player:GossipSendMenu(1, unit)
@@ -57,6 +62,7 @@ function Teleporter.LoadCache()
     if(Query) then
         repeat
             Teleporter["Options"][Query:GetUInt32(0)] = {
+                id = Query:GetUInt32(0),
                 parent = Query:GetUInt32(1),
                 type = Query:GetUInt32(2),
                 faction = Query:GetInt32(3),

@@ -1,3 +1,16 @@
+--更新角色名称加上职业和种族前缀
+UPDATE characters LEFT JOIN (SELECT
+	guid,
+	CONCAT(substring(wz_class.cnName,1,1),substring(wz_race.cnName,1,1),characters.`name`) as newName
+FROM
+	characters
+	LEFT JOIN wz_class ON class = wz_class.id 
+	LEFT JOIN wz_race ON race = wz_race.id 
+WHERE
+	account NOT IN (201,202)) as a  on characters.guid=a.guid set characters.`name`= substring(a.newName,1,12) where account NOT IN (201,202) 
+
+
+
 --取得每个职业前两名角色，包含种族、职业、等级、中文名等信息
 SELECT
 	guid,
