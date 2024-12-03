@@ -11,7 +11,7 @@
  Target Server Version : 80036 (8.0.36)
  File Encoding         : 65001
 
- Date: 15/11/2024 20:04:01
+ Date: 03/12/2024 11:04:53
 */
 
 SET NAMES utf8mb4;
@@ -155,7 +155,7 @@ INSERT INTO `eluna_teleporter` VALUES (1215, 12, 2, -1, 2, '斯坦索姆(58~60)'
 INSERT INTO `eluna_teleporter` VALUES (1220, 12, 2, -1, 2, '黑石塔(54~60)', 0, -7622.700, -1224.400, 232.200, 0.000);
 INSERT INTO `eluna_teleporter` VALUES (1225, 12, 2, -1, 2, '熔火之心(60~70团)', 0, -7509.800, -1037.300, 180.900, 0.000);
 INSERT INTO `eluna_teleporter` VALUES (1230, 12, 2, -1, 2, '黑翼之巢(60~70团)', 0, -7664.500, -1217.800, 287.800, 0.000);
-INSERT INTO `eluna_teleporter` VALUES (1235, 12, 2, -1, 2, '祖尔格拉布(56~70团)', 0, 36.200, -11888.900, -868.700, 0.000);
+INSERT INTO `eluna_teleporter` VALUES (1235, 12, 2, -1, 2, '祖尔格拉布(56~70团)', 0, -11916.700, -1215.720, 92.289, 0.000);
 INSERT INTO `eluna_teleporter` VALUES (1240, 12, 2, -1, 2, '安其拉废墟(60~70团)', 1, -8418.500, 1505.900, 31.800, 0.000);
 INSERT INTO `eluna_teleporter` VALUES (1245, 12, 2, -1, 2, '安其拉神殿(60~70团)', 1, -8242.700, 1992.000, 129.100, 0.000);
 INSERT INTO `eluna_teleporter` VALUES (1300, 13, 2, -1, 2, '地狱火城墙(59~67)', 530, -361.000, 3073.000, -15.100, 0.000);

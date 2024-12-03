@@ -88,6 +88,7 @@ function Rewards.levelup(event, player, oldLevel)
     local accountName = player:GetAccountName()
     --accountName开头为RNDBOT不发送奖励
     if string.sub(accountName, 1, 6) == "RNDBOT" then
+        print(">>Script: wzLevelupReward "..accountName.." is RNDBOT, no reward. level:"..nowLevel)
         return
     end
     local name = player:GetName()

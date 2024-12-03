@@ -1,3 +1,46 @@
+--取得每个职业前两名角色，包含种族、职业、等级、中文名等信息
+SELECT
+	guid,
+	account,
+	characters.`name`,
+	race,
+	class,
+	`level`,
+	wz_class.cnName AS cname,
+	wz_race.cnName AS rname 
+FROM
+	( SELECT *  FROM
+		( SELECT *, ROW_NUMBER() OVER ( PARTITION BY class ORDER BY class ) AS rn 
+		FROM characters 
+		WHERE
+			account NOT IN ( 201, 202 ) 
+			AND race IN ( 1, 3, 4, 7, 11 ) 
+		) t 
+	WHERE t.rn <= 2 
+	) AS characters
+	LEFT JOIN wz_class ON class = wz_class.id
+	LEFT JOIN wz_race ON race = wz_race.id 
+ORDER BY
+	class
+
+--取得角色表某种阵营的列表，包含种族、职业、等级、中文名等信息
+SELECT
+	guid,
+	account,
+	characters.`name`,
+	race,
+	class,
+	`level`,
+	wz_class.cnName as cname,
+	wz_race.cnName as rname
+FROM
+	characters
+	LEFT JOIN wz_class ON class = wz_class.id 
+	LEFT JOIN wz_race ON race = wz_race.id 
+WHERE
+	account NOT IN (201,202) 
+	and race not in (1,3,4,7,11)
+	ORDER BY class;
 
 class
 ID	Value	Name
