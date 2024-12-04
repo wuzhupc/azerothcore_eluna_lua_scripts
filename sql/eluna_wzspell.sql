@@ -11,7 +11,7 @@
  Target Server Version : 80036 (8.0.36)
  File Encoding         : 65001
 
- Date: 03/12/2024 11:03:01
+ Date: 04/12/2024 19:08:17
 */
 
 SET NAMES utf8mb4;
@@ -42,7 +42,7 @@ CREATE TABLE `eluna_wzspell`  (
 INSERT INTO `eluna_wzspell` VALUES (1, 0, 1, -1, 0, '追踪类', '', 0, NULL, 0, 0);
 INSERT INTO `eluna_wzspell` VALUES (2, 0, 1, -1, 0, '被动天赋', '', 0, NULL, 0, 0);
 INSERT INTO `eluna_wzspell` VALUES (3, 0, 1, -1, 0, '抗性', '', 0, NULL, 0, 0);
-INSERT INTO `eluna_wzspell` VALUES (4, 0, 1, -1, 0, 'BUFF', '', 0, NULL, 0, 0);
+INSERT INTO `eluna_wzspell` VALUES (4, 0, 1, -1, 0, 'BUFF&特殊技能', '', 0, NULL, 0, 0);
 INSERT INTO `eluna_wzspell` VALUES (5, 0, 1, -1, 0, '武器技能', '', 0, NULL, 0, 0);
 INSERT INTO `eluna_wzspell` VALUES (6, 0, 1, -1, 0, '防具技能等', '', 0, NULL, 0, 0);
 INSERT INTO `eluna_wzspell` VALUES (7, 0, 1, -1, 0, '提高致命一击', '', 0, '', 0, 0);
@@ -73,13 +73,22 @@ INSERT INTO `eluna_wzspell` VALUES (302, 3, 2, -1, 2, '+55所有魔法抗性', '
 INSERT INTO `eluna_wzspell` VALUES (303, 3, 2, -1, 2, '+155所有魔法抗性', '10个组合-被动', 1, '18682,18683,18684,18685,18686,18687,18688,18689,18690,18691', 15500000, 0);
 INSERT INTO `eluna_wzspell` VALUES (304, 3, 2, -1, 2, '+104所有魔法抗性', '13个组合-被动', 1, '41668,41666,41662,41664,41721,41728,41822,41819,41843,41839,41880,41883,41893', 10500000, 0);
 INSERT INTO `eluna_wzspell` VALUES (305, 3, 2, -1, 2, '+60所有魔法抗性', '4个组合-被动', 1, '41680,41673,41724,41826', 6000000, 0);
-INSERT INTO `eluna_wzspell` VALUES (306, 3, 2, -1, 2, '元素护甲', '对所有系别的魔法抗性提高200点，持续2分钟', 0, '29718', 2000000, 0);
-INSERT INTO `eluna_wzspell` VALUES (401, 4, 2, -1, 2, '炫彩惊奇', '所有系别的魔法抗性提高35点，同时提高所有属性18点，持续2小时', 0, '42735', 10000, 1);
-INSERT INTO `eluna_wzspell` VALUES (402, 4, 2, -1, 2, '赞札之速', '使玩家的奔跑速度提高20%，持续2小时。', 0, '24383', 20000, 1);
-INSERT INTO `eluna_wzspell` VALUES (403, 4, 2, -1, 2, '赞达拉之灵', '使所有属性提高50，持续2小时', 0, '24417', 20000, 1);
-INSERT INTO `eluna_wzspell` VALUES (404, 4, 2, -1, 2, '稻草人的祈祷', '使你获得的经验值和声望提高10%，持续2小时', 0, '24705', 100000, 1);
-INSERT INTO `eluna_wzspell` VALUES (405, 4, 2, -1, 2, '水上行走', '让你可以在水上行走，持续10分钟。任何伤害都会解除这个效果。', 0, '11319', 100000, 0);
-INSERT INTO `eluna_wzspell` VALUES (406, 4, 2, -1, 2, '假死', '需要10法力', 0, '5384', 100000, 0);
+INSERT INTO `eluna_wzspell` VALUES (306, 3, 2, -1, 2, '元素护甲', '魔抗+200，持续2M', 0, '29718', 2000000, 0);
+INSERT INTO `eluna_wzspell` VALUES (401, 4, 2, -1, 2, '[光环]炫彩惊奇', '魔抗+35点，全属性+18点，持续2H', 0, '42735', 10000, 1);
+INSERT INTO `eluna_wzspell` VALUES (402, 4, 2, -1, 2, '[光环]赞札之速', '奔跑速度+20%，持续2H', 0, '24383', 20000, 1);
+INSERT INTO `eluna_wzspell` VALUES (403, 4, 2, -1, 2, '[光环]赞达拉之灵', '全属性提高+50，持续2H', 0, '24425', 20000, 1);
+INSERT INTO `eluna_wzspell` VALUES (404, 4, 2, -1, 2, '[光环]稻草人的祈祷', '经验值和声望+10%，持续2H', 0, '24705', 100000, 1);
+INSERT INTO `eluna_wzspell` VALUES (405, 4, 2, -1, 2, '[光环]屠龙者的咆哮', '致命等级+140, 攻强+140, 持续2H', 0, '22888', 100000, 1);
+INSERT INTO `eluna_wzspell` VALUES (406, 4, 2, -1, 2, '[光环]风歌夜曲', '暴击+70, 全属性+15, 持续1H', 0, '15366', 10000, 1);
+INSERT INTO `eluna_wzspell` VALUES (409, 4, 2, -1, 2, '水上行走', '水上行走，持续10M', 0, '11319', 100000, 0);
+INSERT INTO `eluna_wzspell` VALUES (411, 4, 2, -1, 2, '假死', '需要法力', 0, '5384', 200000, 0);
+INSERT INTO `eluna_wzspell` VALUES (413, 4, 2, -1, 2, '潜行', '', 0, '58506', 200000, 0);
+INSERT INTO `eluna_wzspell` VALUES (415, 4, 2, -1, 2, '变成小鸡！', '不能施法，伤害能力降低66%', 0, '30501', 20000000, 0);
+INSERT INTO `eluna_wzspell` VALUES (420, 4, 2, -1, 2, '重拳先生践踏', '击晕45码范围内所有敌人，持续10S', 0, '6432', 99990000, 0);
+INSERT INTO `eluna_wzspell` VALUES (425, 4, 2, -1, 2, '防御矩阵', '7码内所有队友受到的伤害降低90% 持续15S, 施法时间1.5S', 0, '65070', 20000000, 0);
+INSERT INTO `eluna_wzspell` VALUES (430, 4, 2, -1, 2, '保护结界', '使得30码内所有队友免疫所有攻击, 持续30S', 0, '42478', 99990000, 0);
+INSERT INTO `eluna_wzspell` VALUES (445, 4, 2, -1, 2, '[光环]心灵防护力场', '对昏迷、沉默和迷惑效果免疫,持续15M', 0, '36480', 100000, 1);
+INSERT INTO `eluna_wzspell` VALUES (450, 4, 2, -1, 2, '心灵防护力场', '对昏迷、沉默和迷惑效果免疫,持续15M', 0, '36480', 20000000, 0);
 INSERT INTO `eluna_wzspell` VALUES (501, 5, 2, -1, 2, '单手斧', '', 0, '196', 1000000, 0);
 INSERT INTO `eluna_wzspell` VALUES (502, 5, 2, -1, 2, '双手斧', '', 0, '197', 1000000, 0);
 INSERT INTO `eluna_wzspell` VALUES (503, 5, 2, -1, 2, '单手锤', '', 0, '198', 1000000, 0);

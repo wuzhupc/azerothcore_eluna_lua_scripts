@@ -63,6 +63,7 @@ WHERE
 
 --钥匙
 
+
 SELECT
 	il.`Name` AS twName,item_template.*
 FROM
@@ -70,14 +71,12 @@ FROM
 	LEFT JOIN item_template_locale AS il ON il.ID = entry 
 	AND il.locale = 'zhTw' 
 WHERE
-	class = 13  and Quality!=0 and flags not in (2048,2112)  and item_template.`name` not like '%Deprecated%' and item_template.`name` not like '%UNUSED%' and il.`name`!='';
-
-	SELECT 923300 as entry, 0 as slot, entry as item,0 as maxcount,0 as incrtime,0 as ExtendedCost,0 as VerifiedBuild from item_template LEFT JOIN item_template_locale AS il ON il.ID = entry 
-	AND il.locale = 'zhTw'  where class = 13 and Quality!=0 and flags not in (2048,2112) and  item_template.`name` not like '%Deprecated%' and item_template.`name` not like '%UNUSED%' and il.`name`!='';
+	class = 13  and Quality!=0 and item_template.`name` not like '%Deprecated%' and item_template.`name` not like '%UNUSED%' and il.`name`!=''
+	and item_template.entry not in (2629,2719,3930,4103,4483,4484,4485,5050,5089,5851,7923,23801,29501,29742,30426,30712,31655,31664,31705,31956,32773,33061,35705) or item_template.entry in (15869,15870,15871,15872,43854,43853);
 
     DELETE from npc_vendor where entry = 923300;
-	INSERT INTO npc_vendor(entry,slot,item,maxcount,incrtime,ExtendedCost,VerifiedBuild) SELECT 923300 as entry, 0 as slot, entry as item,0 as maxcount,0 as incrtime,0 as ExtendedCost,0 as VerifiedBuild from item_template LEFT JOIN item_template_locale AS il ON il.ID = entry 
-	AND il.locale = 'zhTw'  where class = 13 and Quality!=0 and flags not in (2048,2112) and  item_template.`name` not like '%Deprecated%' and item_template.`name` not like '%UNUSED%' and il.`name`!='';
+		INSERT INTO npc_vendor(entry,slot,item,maxcount,incrtime,ExtendedCost,VerifiedBuild) SELECT 923300 as entry, 0 as slot, entry as item,0 as maxcount,0 as incrtime,0 as ExtendedCost,0 as VerifiedBuild from item_template LEFT JOIN item_template_locale AS il ON il.ID = entry 
+	AND il.locale = 'zhTw'  where class = 13 and Quality!=0 and  item_template.`name` not like '%Deprecated%' and item_template.`name` not like '%UNUSED%' and il.`name`!='' and item_template.entry not in (2629,2719,3930,4103,4483,4484,4485,5050,5089,5851,7923,23801,29501,29742,30426,30712,31655,31664,31705,31956,32773,33061,35705) or item_template.entry in (15869,15870,15871,15872,43854,43853);
 
 	--class 3 宝石  subclass 7 简单宝石
 	SELECT

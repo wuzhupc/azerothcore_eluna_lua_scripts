@@ -40,7 +40,7 @@ function wzCommon.MoneyToString(money,addcolor)
         result = result .. copper .. "铜"
     end
     if(result~="" and addcolor==true)then
-        return "|cffFFD700" .. result .. "|r"
+        return "|cffDD2200" .. result .. "|r"
     end
     return result
 end

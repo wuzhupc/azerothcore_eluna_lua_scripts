@@ -44,19 +44,24 @@ function Speller.OnSelect(event, player, unit, sender, intid, code)
     if (intid == 0) then -- Special handling for "Back" option in case parent is 0
         Speller.OnHello(event, player, unit)
     elseif (t[intid]["type"] == 1) then
+        local datas = {}
         for k, v in pairs(t) do
             if (v["parent"] == intid and (player:GetTeam() == v["faction"] or v["faction"] == -1)) then
                 if v["level"] <= player:GetGMRank() then
                     -- print("[Speller]: id: " .. v["id"] .. " money: " .. v["money"])
-                    local tmpStr = ""
-                    if v["money"] ~= 0 then
-                        tmpStr = "您将花费"
-                    end
-                    -- icon, msg, sender, intid, code, popup, money
-                    player:GossipMenuAddItem(v["icon"], v["name"] .. Speller.GetDescStr(v["money"], v["desc"]), 0, v["id"], false,
-                        tmpStr, v["money"])
+                    table.insert(datas, v)
                 end
             end
+        end        
+        table.sort(datas, function(a, b) return a["id"] < b["id"] end)
+        for k, v in pairs(datas) do
+            local tmpStr = ""
+            if v["money"] ~= 0 then
+                tmpStr = "您将花费"
+            end
+            -- icon, msg, sender, intid, code, popup, money
+            player:GossipMenuAddItem(v["icon"], v["name"] .. Speller.GetDescStr(v["money"], v["desc"]), 0, v["id"], false,
+                tmpStr, v["money"])
         end
         player:GossipMenuAddItem(7, "[返回]", 0, t[intid]["parent"])
         player:GossipSendMenu(1, unit)
