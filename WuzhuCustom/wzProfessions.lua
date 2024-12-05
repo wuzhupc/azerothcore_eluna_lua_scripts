@@ -39,6 +39,34 @@ local Professionser = {
         [33633] = { "女附魔師安狄雅菈", 530, -2124.96, 5410.95, 54.8625 },
         [33642] = { "博学者斯克希里斯", 530, -2254.97, 5560.91, 67.1006 },
     },
+    --高级技能 [高级技能ID] = {专业ID ,"名字", "描述", 需要技能点数,价格},价格未填默认为按money_advance_skill
+    advskills = {
+        --锻造
+        [9787] = { 164, "武器锻造", '', 215, 500000 },
+        [9788] = { 164, "防具锻造", '', 215, 500000 },
+        [17039] = { 164, "大师级铸剑", '', 215 },
+        [17040] = { 164, "大师级铸锤", '', 215 },
+        [17041] = { 164, "大师级铸斧", '', 215 },
+        --制皮
+        [10656] = { 165, "元素制皮", '', 255 },
+        [10658] = { 165, "龙鳞制皮", '', 255 },
+        [10660] = { 165, "部族制皮", '', 255 },
+        --工程学
+        [20219] = { 202, "侏儒工程学", '', 225 },
+        [20222] = { 202, "地精工程师", '', 225 },
+        --采矿
+        [22967] = { 186, "熔炼源质", '', 300, 200000 },
+        [46353] = { 186, "熔炼硬化氪金", '', 375 },
+        --裁缝
+        [26797] = { 197, "魔焰裁缝", '制作魔法布或法纹布+1', 350 },
+        [26798] = { 197, "月布裁缝", '制作原始月布或月影布+1', 350 },
+        [26801] = { 197, "暗纹裁缝", '制作暗影布或乌纹布+1', 350 },
+        --炼金
+        [28672] = { 171, "转化大师", '转化材料效果更好', 350 },
+        [28675] = { 171, "药水大师", '制造出额外的药水', 350 },
+        [28677] = { 171, "药剂大师", '制造出额外的药剂', 350 },
+
+    },
     skills = {
         {
             skill = 129,
@@ -53,6 +81,7 @@ local Professionser = {
             name_en = "Blacksmithing",
             spells = { 2018, 3100, 3538, 9785, 29844, 51300 },
             npcids = { 2836, 33642, 28694 },
+            advskills = { 9787, 9788, 17039, 17040, 17041 }
         },
         {
             skill = 165,
@@ -60,6 +89,7 @@ local Professionser = {
             name_en = "Leatherworking",
             spells = { 2108, 3104, 3811, 10662, 32549, 51302 },
             npcids = { 33642, 28700 },
+            advskills = { 10656, 10658, 10660 }
         },
         {
             skill = 171,
@@ -67,6 +97,7 @@ local Professionser = {
             name_en = "Alchemy",
             spells = { 2259, 3101, 3464, 11611, 28596, 51304 },
             npcids = { 2837, 33642, 28703, 33630 },
+            advskills = { 28677, 28675, 28672 }
         },
         {
             skill = 182,
@@ -88,6 +119,7 @@ local Professionser = {
             name_en = "Mining",
             spells = { 2575, 2576, 3564, 10248, 29354, 50310 },
             npcids = { 8128, 33642, 28698 },
+            advskills = { 22967, 46353 }
         },
         {
             skill = 197,
@@ -95,13 +127,15 @@ local Professionser = {
             name_en = "Tailoring",
             spells = { 3908, 3909, 3910, 12180, 26790, 51309 },
             npcids = { 2627, 33642, 28699 },
+            advskills = { 26801, 26797, 26798 }
         },
         {
             skill = 202,
-            name = "工程",
+            name = "工程学",
             name_en = "Engineering",
             spells = { 4036, 4037, 4038, 12656, 30350, 51306 },
             npcids = { 8736, 33642, 28697 },
+            advskills = { 20219, 20222 }
         },
         {
             skill = 333,
@@ -143,6 +177,7 @@ local Professionser = {
     skills_level_names = { '初级', '中级', '高级', '专家', '大师', '宗师' },
     skills_level_maxvalues = { 75, 150, 225, 300, 375, 450 }, --每一级最大点数值
     skills_level_allowup = { 0, 50, 125, 200, 275, 350 },     --允许学习下一级的要求
+    money_advance_skill = 1000000,                            --进阶技能所需金币
     menuid_home = 0,                                          --返回首页
     menuid_back = 1,                                          --返回上一级
     menuid_complete = 2,                                      --完成
@@ -153,6 +188,7 @@ local Professionser = {
     menuid_advance_nowlevelmax = 6,                           --进阶当前级别满级
     menuid_learn = 7,                                         --学习
     menuid_npc = 8,                                           --NPC
+    menuid_advance_skill = 9,                                 --进阶技能
 }
 
 function Professionser.OnUse(event, player, unit)
@@ -260,7 +296,8 @@ function Professionser.OnGossipSelect(event, player, unit, sender, intid, code)
                 if (nextLevelValue >= Professionser.menuid_advance_1) then
                     player:GossipMenuAddItem(3,
                         "技能点数+10" ..
-                        wzCommon.MoneyToString(10 * Professionser.skills_level_maxvalues[level] * Professionser.money_base,
+                        wzCommon.MoneyToString(
+                            10 * Professionser.skills_level_maxvalues[level] * Professionser.money_base,
                             true), 0,
                         GetMenuidAdvance(intid, Professionser.menuid_advance_1), false, '需要花费的铜币',
                         10 * Professionser.skills_level_maxvalues[level] * Professionser.money_base)
@@ -269,7 +306,7 @@ function Professionser.OnGossipSelect(event, player, unit, sender, intid, code)
                     player:GossipMenuAddItem(3,
                         "技能点数+50" ..
                         wzCommon.MoneyToString(
-                        50 * Professionser.skills_level_maxvalues[level] * Professionser.money_base, true),
+                            50 * Professionser.skills_level_maxvalues[level] * Professionser.money_base, true),
                         0,
                         GetMenuidAdvance(intid, Professionser.menuid_advance_5), false, '需要花费的铜币',
                         50 * Professionser.skills_level_maxvalues[level] * Professionser.money_base)
@@ -278,7 +315,7 @@ function Professionser.OnGossipSelect(event, player, unit, sender, intid, code)
                     player:GossipMenuAddItem(3,
                         "技能点数+100" ..
                         wzCommon.MoneyToString(
-                        100 * Professionser.skills_level_maxvalues[level] * Professionser.money_base, true), 0,
+                            100 * Professionser.skills_level_maxvalues[level] * Professionser.money_base, true), 0,
                         GetMenuidAdvance(intid, Professionser.menuid_advance_10), false, '需要花费的铜币',
                         100 * Professionser.skills_level_maxvalues[level] * Professionser.money_base)
                 end
@@ -291,6 +328,29 @@ function Professionser.OnGossipSelect(event, player, unit, sender, intid, code)
                             Professionser.money_base, true), 0,
                         GetMenuidAdvance(intid, Professionser.menuid_advance_nowlevelmax), false, '需要花费的铜币',
                         nextLevelValue * Professionser.skills_level_maxvalues[level] * Professionser.money_base)
+                end
+            end
+            if skill.advskills and #skill.advskills > 0 then
+                for i, as in ipairs(skill.advskills) do
+                    local advskill = Professionser.advskills[as]
+                    if advskill then
+                        local has = player:HasSpell(as)
+                        if (has) then
+                            player:GossipMenuAddItem(3,
+                                "【学习】" .. advskill[2] ..
+                                "(已拥有)", 0,
+                                GetMenuidAdvance(as, Professionser.menuid_advance_skill))
+                        else
+                            local needmoney = advskill[5]
+                            if (not needmoney) then
+                                needmoney = Professionser.money_advance_skill
+                            end
+                            player:GossipMenuAddItem(3,
+                                "【学习】" .. advskill[2] ..
+                                "(需" .. wzCommon.MoneyToString(needmoney, true) .. ",技能" .. advskill[4] .. ")", 0,
+                                GetMenuidAdvance(as, Professionser.menuid_advance_skill), false, '需要花费的铜币', needmoney)
+                        end
+                    end
                 end
             end
             if skill.npcids and #skill.npcids > 0 then
@@ -310,6 +370,39 @@ function Professionser.OnGossipSelect(event, player, unit, sender, intid, code)
         --先判断是否是NPC
         if (menuid == Professionser.menuid_npc) then
             TeleportToNPC(player, skillid)
+            player:GossipComplete()
+            return
+        end
+        --高级技能
+        if (menuid == Professionser.menuid_advance_skill) then
+            local advskill = Professionser.advskills[skillid]
+            if not advskill then
+                player:SendNotification("未找到相应高级技能")
+                player:GossipComplete()
+                return
+            end
+            local needmoney = advskill[5]
+            if (not needmoney) then
+                needmoney = Professionser.money_advance_skill
+            end
+            if (player:GetCoinage() < needmoney) then
+                player:SendNotification("你的金币不足")
+                player:GossipComplete()
+                return
+            end
+            local nowSkillValue = player:GetSkillValue(advskill[1])
+            if (nowSkillValue < advskill[4]) then
+                player:SendNotification("你的技能等级(" .. nowSkillValue .. ")不足,需要" .. advskill[4])
+                player:GossipComplete()
+                return
+            end
+            if (player:HasSpell(skillid)) then
+                player:SendNotification("你已学会这个技能")
+                player:GossipComplete()
+                return
+            end
+            player:ModifyMoney(-needmoney)
+            player:LearnSpell(skillid, false)
             player:GossipComplete()
             return
         end
@@ -341,13 +434,12 @@ function Professionser.OnGossipSelect(event, player, unit, sender, intid, code)
                     nowSkillValue .. "，未达到升级要求，需要点数:" .. Professionser.skills_level_allowup[level + 1] .. "")
                 player:GossipComplete()
                 return
-            else
-                local spellid = skill.spells[level + 1]
-                player:LearnSpell(spellid)
-                player:ModifyMoney(-needmoney)
-                player:GossipComplete()
-                return
             end
+            local spellid = skill.spells[level + 1]
+            player:LearnSpell(spellid)
+            player:ModifyMoney(-needmoney)
+            player:GossipComplete()
+            return
         end
         --增加技能点数
         local nextLevelValue = Professionser.skills_level_maxvalues[level] - nowSkillValue

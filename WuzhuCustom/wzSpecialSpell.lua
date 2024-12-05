@@ -27,6 +27,11 @@ function Speller.GetDescStr(money, desc)
     return tmpStr
 end
 
+--检测是否已经拥有spell
+function Speller.CheckSpell(player,spells)
+--TODO
+end
+
 function Speller.OnHello(event, player, unit)
     player:GossipClearMenu()
     for k, v in pairs(Speller["Options"]) do
