@@ -1,3 +1,11 @@
+--[[
+Author: wuzhu
+Date: 2024-10-30 16:46:45
+LastEditTime: 2024-11-14 18:22:34
+FilePath: \Azerothcore\lua_scripts\WuzhuCustom\wzNpcInfoHelper.lua
+Description:坐骑(物品-922003)脚本-可以随时随地使用各种坐骑和召唤小伙伴
+Copyright (c) 2024 by WUZHUPC, All Rights Reserved.
+--]]
 print(">>Script: wzmounts loading...")
 local ItemWzMounts = {
     entry = 922003

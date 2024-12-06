@@ -1,3 +1,11 @@
+--[[
+Author: wuzhu
+Date: 2024-10-30 16:46:45
+LastEditTime: 2024-11-14 18:22:34
+FilePath: \Azerothcore\lua_scripts\WuzhuCustom\wzNpcInfoHelper.lua
+Description:NPC及Object查询助手(物品-922005)脚本-根据NPC ID或Name、Object的Name直接查询数据库，并可标记及传送到相应位置
+Copyright (c) 2024 by WUZHUPC, All Rights Reserved.
+--]]
 print(">>Script: wzNpcInfoHelper loading...")
 
 local wzCommon = require("wzCommon")

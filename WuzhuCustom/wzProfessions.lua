@@ -4,7 +4,7 @@ Date: 2024-11-01 14:29:13
 LastEditTime: 2024-11-01 14:38:46
 FilePath: \lua\wzProfessions.lua
 Description:
-Copyright (c) 2024 by lawyee, All Rights Reserved.
+Copyright (c) 2024 by WUZHUPC, All Rights Reserved.
 --]]
 print(">>Srcipt wzProfessions loading...")
 local wzCommon = require("wzCommon")

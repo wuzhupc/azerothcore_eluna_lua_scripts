@@ -3,16 +3,8 @@ Author: wuzhu
 Date: 2024-11-04 19:54:46
 LastEditTime: 2024-11-06 14:54:05
 FilePath: \Azerothcore\lua_scripts\WuzhuCustom\wzLevelupReward.lua
-Description: 
+Description: 玩家升级奖励脚本
 Copyright (c) 2024 by WUZHUPC, All Rights Reserved. 
---]]
---[[
-Author: wuzhu
-Date: 2024-11-04 10:31:59
-LastEditTime: 2024-11-04 10:37:07
-FilePath: \lua\wzLevelupReward.lua
-Description: 
-Copyright (c) 2024 by lawyee, All Rights Reserved. 
 --]]
 print(">>Script: wzLevelupReward loading...")
 local wzCommon = require("wzCommon")

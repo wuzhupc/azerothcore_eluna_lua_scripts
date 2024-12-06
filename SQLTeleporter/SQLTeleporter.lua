@@ -3,7 +3,7 @@ Author: wuzhu
 Date: 2024-10-22 11:19:18
 LastEditTime: 2024-10-22 11:23:28
 FilePath: \Scripts\Custom\SQL Teleporter\Eluna SQL Teleporter.lua
-Description: 
+Description: 传送脚本(NPC:922001)修改版本
 Copyright (c) 2024 by WUZHUPC, All Rights Reserved. 
 --]]
 print(">>Script: SQLTeleporter loading...")

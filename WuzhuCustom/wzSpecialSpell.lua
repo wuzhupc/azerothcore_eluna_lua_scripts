@@ -3,8 +3,8 @@ Author: wuzhu
 Date: 2024-10-30 16:46:45
 LastEditTime: 2024-11-14 18:22:34
 FilePath: \Azerothcore\lua_scripts\WuzhuCustom\wzSpecialSpell.lua
-Description: 
-Copyright (c) 2024 by WUZHUPC, All Rights Reserved. 
+Description:特殊技能学习(NPC-922003)脚本
+Copyright (c) 2024 by WUZHUPC, All Rights Reserved.
 --]]
 print(">>Script: wzSpecialSpell loading...")
 local wzCommon = require("wzCommon")
@@ -28,8 +28,27 @@ function Speller.GetDescStr(money, desc)
 end
 
 --检测是否已经拥有spell
-function Speller.CheckSpell(player,spells)
---TODO
+function Speller.CheckSpell(player, spellStr)
+    local spells = wzCommon.SplitString(spellStr, ",")
+    local result = true --默认已经拥有
+    for _, spell in pairs(spells) do
+        if not player:HasSpell(spell) then
+            result = false --只要一个未拥有，就认为未拥有
+        end
+    end
+    return result
+end
+
+--检测是否已经拥有aura
+function Speller.CheckAura(player, spellStr)
+    local spells = wzCommon.SplitString(spellStr, ",")
+    local result = true --默认已经拥有
+    for _, spell in pairs(spells) do
+        if not player:HasAura(spell) then
+            result = false --只要一个未拥有，就认为未拥有
+        end
+    end
+    return result
 end
 
 function Speller.OnHello(event, player, unit)
@@ -57,15 +76,23 @@ function Speller.OnSelect(event, player, unit, sender, intid, code)
                     table.insert(datas, v)
                 end
             end
-        end        
+        end
         table.sort(datas, function(a, b) return a["id"] < b["id"] end)
         for k, v in pairs(datas) do
             local tmpStr = ""
             if v["money"] ~= 0 then
                 tmpStr = "您将花费"
             end
+            local desc = v["desc"]
+            if (v["aura"] == 1 and Speller.CheckAura(player, v["spells"])) then
+                desc = "已拥有"
+            end
+            if (v["aura"] == 0 and Speller.CheckSpell(player, v["spells"])) then
+                desc = "已学"
+            end
             -- icon, msg, sender, intid, code, popup, money
-            player:GossipMenuAddItem(v["icon"], v["name"] .. Speller.GetDescStr(v["money"], v["desc"]), 0, v["id"], false,
+            player:GossipMenuAddItem(v["icon"], v["name"] .. Speller.GetDescStr(v["money"], desc), 0, v["id"],
+                false,
                 tmpStr, v["money"])
         end
         player:GossipMenuAddItem(7, "[返回]", 0, t[intid]["parent"])

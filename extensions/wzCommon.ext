@@ -3,7 +3,7 @@ Author: wuzhu
 Date: 2024-11-14 14:09:26
 LastEditTime: 2024-11-14 14:15:22
 FilePath: \Azerothcore\lua_scripts\wzCommon.lua
-Description: 
+Description: 通用函数库
 Copyright (c) 2024 by WUZHUPC, All Rights Reserved. 
 --]]
 print(">>Script: wzCommon loading...")
@@ -98,6 +98,7 @@ function wzCommon.getAreaInfoByMapInfo(mapId, x, y, z)
     return wzCommon.GetAreaInfo(areaId, '')
 end
 
+--加载区域、地图表信息，用于查询显示区域地图名称（跟DBC文件语言版本不一致时使用）
 function wzCommon.LoadAreaTableCache()
     print("[E-SQL wzCommon]: table areatable_dbc_base loading...")
     wzCommon["areatable"] = {}

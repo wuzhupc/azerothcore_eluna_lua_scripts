@@ -118,8 +118,8 @@ function ItemWzBind.OnInputBindSelect(event, player, item, sender, intid, code, 
     elseif code ~= "1" then
         title = code .. "(" .. mapName .. ")"
     end
-    if (map:IsArena() or map:IsBattleground() or map:IsRaid()) then
-        player:SendBroadcastMessage("战场及副本不能绑定位置")
+    if (map:IsArena() or map:IsBattleground()) then
+        player:SendBroadcastMessage("战场及竞技场不能绑定位置")
     else
         -- 判断是否已经绑定,如果已经绑定则更新,否则插入
         if (w.type == 1) then

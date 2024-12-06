@@ -1,6 +1,11 @@
---[[信息：
-        超级炉石  （Super stone）
-]] --
+--[[
+Author: wuzhu
+Date: 2024-10-30 16:46:45
+LastEditTime: 2024-11-14 18:22:34
+FilePath: \Azerothcore\lua_scripts\WuzhuCustom\wzSuperStone.lua
+Description:超级炉石(物品：炉石-6948)脚本
+Copyright (c) 2024 by WUZHUPC, All Rights Reserved.
+--]]
 print(">>Script: wzSuperStone loading...")
 local wzCommon = require("wzCommon")
 
