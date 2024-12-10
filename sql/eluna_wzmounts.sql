@@ -11,7 +11,7 @@
  Target Server Version : 80036 (8.0.36)
  File Encoding         : 65001
 
- Date: 04/12/2024 19:08:05
+ Date: 10/12/2024 19:01:51
 */
 
 SET NAMES utf8mb4;
@@ -55,7 +55,7 @@ INSERT INTO `eluna_wzmounts` VALUES (35, 0, 1, -1, 0, '陆地坐骑（100%）', 
 INSERT INTO `eluna_wzmounts` VALUES (40, 0, 1, -1, 0, '飞行坐骑（150%）', NULL, 0, NULL, NULL, NULL, 0, NULL, 0);
 INSERT INTO `eluna_wzmounts` VALUES (45, 0, 1, -1, 0, '飞行坐骑（280%）', NULL, 0, NULL, NULL, NULL, 0, NULL, 0);
 INSERT INTO `eluna_wzmounts` VALUES (50, 0, 1, -1, 0, '飞行坐骑（310%）', NULL, 0, NULL, NULL, NULL, 0, NULL, 0);
-INSERT INTO `eluna_wzmounts` VALUES (55, 0, 1, -1, 0, '载具', NULL, 0, NULL, NULL, NULL, 0, NULL, 0);
+INSERT INTO `eluna_wzmounts` VALUES (55, 0, 1, -1, 0, '载具&特殊坐骑', NULL, 0, NULL, NULL, NULL, 0, NULL, 0);
 INSERT INTO `eluna_wzmounts` VALUES (60, 0, 1, -1, 0, '小伙伴', NULL, 0, NULL, NULL, NULL, 0, NULL, 0);
 INSERT INTO `eluna_wzmounts` VALUES (600, 30, 2, -1, 2, '魔法鸡蛋', '0%', 0, 40, 46778, 65917, 1, 60, 0);
 INSERT INTO `eluna_wzmounts` VALUES (601, 30, 2, -1, 2, '魔法猛鸡蛋', '0%', 0, 40, 49290, 65917, 1, 40, 0);
@@ -320,7 +320,7 @@ INSERT INTO `eluna_wzmounts` VALUES (1146, 45, 2, -1, 2, '炽热的角鹰兽', '
 INSERT INTO `eluna_wzmounts` VALUES (1147, 45, 2, -1, 2, '黑锋骸骨狮鹫', '280%', 1, 40, 40775, 54729, 1, 60, 0);
 INSERT INTO `eluna_wzmounts` VALUES (1148, 45, 2, -1, 2, '迅捷魔法扫帚', '280%', 1, 40, 33184, 42668, 1, 1, 0);
 INSERT INTO `eluna_wzmounts` VALUES (1149, 45, 2, -1, 2, '无头骑士的缰绳', '280%', 1, 70, 37012, 48025, 1, 20, 0);
-INSERT INTO `eluna_wzmounts` VALUES (1300, 50, 2, -1, 2, '大型爱心火箭', '310%', 1, 0, 50250, 71342, 1, 80, 0);
+INSERT INTO `eluna_wzmounts` VALUES (1300, 55, 2, -1, 2, '大型爱心火箭', '310%', 1, 0, 50250, 71342, 1, 80, 0);
 INSERT INTO `eluna_wzmounts` VALUES (1301, 50, 2, -1, 2, '奥的灰烬', '310%', 1, 20, 32458, 40192, 1, 70, 0);
 INSERT INTO `eluna_wzmounts` VALUES (1302, 50, 2, -1, 2, '米米尔隆的徽记', '310%', 1, 20, 45693, 63796, 1, 70, 0);
 INSERT INTO `eluna_wzmounts` VALUES (1303, 50, 2, -1, 2, '奥妮克希亚座龙缰绳', '310%', 1, 20, 49636, 69395, 1, 70, 0);
@@ -338,8 +338,8 @@ INSERT INTO `eluna_wzmounts` VALUES (1314, 50, 2, -1, 2, '复仇角斗士的虚�
 INSERT INTO `eluna_wzmounts` VALUES (1315, 50, 2, -1, 2, '野蛮角斗士的虚空幼龙', '310%', 1, 40, 43516, 58615, 1, 70, 0);
 INSERT INTO `eluna_wzmounts` VALUES (1316, 50, 2, -1, 2, '致命角斗士的冰霜巨龙', '310%', 1, 40, 46171, 65439, 1, 70, 0);
 INSERT INTO `eluna_wzmounts` VALUES (1317, 50, 2, -1, 2, '致命角斗士的冰霜巨龙', '310%', 1, 40, 46708, 64927, 1, 70, 0);
-INSERT INTO `eluna_wzmounts` VALUES (1318, 50, 2, -1, 2, '无敌缰绳', '310%', 1, 70, 50818, 72286, 1, 20, 0);
-INSERT INTO `eluna_wzmounts` VALUES (1319, 50, 2, -1, 2, '星穹战马缰绳', '310%', 1, 70, 54811, 75614, 1, 20, 0);
+INSERT INTO `eluna_wzmounts` VALUES (1318, 55, 2, -1, 2, '无敌缰绳', '310%', 1, 70, 50818, 72286, 1, 20, 0);
+INSERT INTO `eluna_wzmounts` VALUES (1319, 55, 2, -1, 2, '星穹战马缰绳', '310%', 1, 70, 54811, 75614, 1, 20, 0);
 INSERT INTO `eluna_wzmounts` VALUES (1500, 55, 2, -1, 2, '重型黑色猛犸战象的缰绳', '100%', 0, 40, 43959, 61465, 1, 40, 0);
 INSERT INTO `eluna_wzmounts` VALUES (1501, 55, 2, -1, 2, '重型黑色猛犸战象的缰绳', '100%', 0, 40, 44083, 61467, 1, 40, 0);
 INSERT INTO `eluna_wzmounts` VALUES (1502, 55, 2, -1, 2, '重型冰雪猛犸象的缰绳', '100%', 0, 40, 43961, 61470, 1, 40, 0);
