@@ -68,7 +68,21 @@ function wzCommon.GetAreaInfo(areaId, defaultMapName)
     if not area then
         return GetAreaName(areaId), defaultMapName
     end
-    return area.name, area.mapName
+    local areaName = area.name
+    --读取父级区域名称（最多再读取2级）
+    if (area.parentId ~= 0) then
+        local parea = wzCommon["areatable"][area.parentId]
+        if parea then
+            areaName = areaName .. "-" .. parea.name
+            if (parea.parentId ~= 0) then
+                local sparea = wzCommon["areatable"][parea.parentId]
+                if sparea then
+                    areaName = areaName .. "-" .. sparea.name
+                end
+            end
+        end
+    end
+    return areaName, area.mapName
 end
 
 function wzCommon.GetAreaId(mapId, x ,y, z)

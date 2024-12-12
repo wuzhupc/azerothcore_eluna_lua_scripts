@@ -325,7 +325,7 @@ local Menu = {
     [MMENU] = { --主菜单
         { FUNC, "传送→位置", Stone.GoHome, GOSSIP_ICON_INTERACT_1, false, "是否传送回|cFFF0F000记录位置|r ?" },
         { FUNC, "记录←位置", Stone.SetHome, GOSSIP_ICON_INTERACT_2, false, "是否记录当前|cFFF0F000位置|r ?" },
-        { MENU, "地图传送", TPMENU, GOSSIP_ICON_TAXI },
+        -- { MENU, "地图传送", TPMENU, GOSSIP_ICON_TAXI },
         -- { FUNC, "修理装备", Stone.RepairAll, GOSSIP_ICON_MONEY_BAG, false, "需要花费金币修理装备 ?" },
         { FUNC, "在线银行", Stone.OpenBank, GOSSIP_ICON_MONEY_BAG },
         { FUNC, "空中邮箱", Stone.OpenMailBox, GOSSIP_ICON_CHAT },
@@ -333,8 +333,8 @@ local Menu = {
         -- { FUNC, "召唤传送师", ST.SummonTeleporterSNPC, GOSSIP_ICON_TAXI },
         -- { FUNC, "召唤技能师", ST.SummonSpellerRNPC, GOSSIP_ICON_TRAINER },
         { FUNC, "召唤超级商人", ST.SummonSuperVendorNPC, GOSSIP_ICON_MONEY_BAG },
-        { MENU, "召唤商业训练师", PTMENU, GOSSIP_ICON_TRAINER },
-        { MENU, "其他功能", MMENU + 0x10, GOSSIP_ICON_CHAT },
+        -- { MENU, "召唤商业训练师", PTMENU, GOSSIP_ICON_TRAINER },
+        -- { MENU, "其他功能", MMENU + 0x10, GOSSIP_ICON_CHAT },
         -- { FUNC, "强制脱离战斗", Stone.OutCombat, GOSSIP_ICON_DOT },
     },
 

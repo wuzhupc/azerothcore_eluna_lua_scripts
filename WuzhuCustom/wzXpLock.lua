@@ -10,7 +10,8 @@ print(">>Script: wzXpLockzLevelupReward loading...")
 local wzCommon = require("wzCommon")
 local XpLock = {
     lockAccounts = { 201 }, --需要锁经验的账号ID
-    lockBaseXp = 1,       --锁级时给的经验值(受全局经验系统数影响)
+    lockBaseXp = 1,         --锁级时给的经验值(受全局经验系统数影响)
+    lockBaseMoney = 10,     --锁级时给的钱的基数，即原给的经验*此基数
     lockInfo = {
         --多少等级在map时才能给经验，否则经验+lockBaseXp
         --60级后只能到外域才能获得正常经验
@@ -35,7 +36,7 @@ function XpLock.checkAccount(player)
 end
 
 function XpLock.checkXp(event, player, amount, victim, source)
-    if (not XpLock.checkAccount(player)) then
+    if (not XpLock.checkAccount(player) or amount <= 0) then
         return
     end
     -- print(">>Script: wzXpLock checkXp: amount-"..amount..";source-"..source)
@@ -51,6 +52,8 @@ function XpLock.checkXp(event, player, amount, victim, source)
             return amount
         end
     end
+    player:ModifyMoney(amount * XpLock.lockBaseMoney)
+    player:SendBroadcastMessage("锁经验中，请到新地图升级解锁，补偿金币：" .. wzCommon.MoneyToString(amount * XpLock.lockBaseMoney, true))
     return XpLock.lockBaseXp
 end
 

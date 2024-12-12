@@ -75,7 +75,7 @@ function ItemWzMounts.OnSelect(event, player, item, sender, intid, code)
     else
         --随机取一个对应类型的坐骑
         local rselitems = ItemWzMounts.GetRandomOptions(t[intid]["type"], 1)
-        print("[ItemWzMounts]: " .. #rselitems .. ' intid:' .. intid .. ' type:' .. t[intid]["type"])
+        -- print("[ItemWzMounts]: " .. #rselitems .. ' intid:' .. intid .. ' type:' .. t[intid]["type"])
         if (#rselitems > 0) then
             for k, v in pairs(rselitems) do
                 if (v["type"] == 3) then
