@@ -7,6 +7,7 @@ Description:坐骑(物品-922003)脚本-可以随时随地使用各种坐骑和�
 Copyright (c) 2024 by WUZHUPC, All Rights Reserved.
 --]]
 print(">>Script: wzmounts loading...")
+local wzCommon = require("wzCommon")
 local ItemWzMounts = {
     entry = 922003
 }
@@ -64,7 +65,7 @@ function ItemWzMounts.OnSelect(event, player, item, sender, intid, code)
             player:GossipMenuAddItem(v["icon"], v["name"], 0, v["id"])
         end
         -- print("[ItemWzMounts]: 22222")
-        player:GossipMenuAddItem(7, "[返回]", 0, t[intid]["parent"])
+        player:GossipMenuAddItem(wzCommon.GOSSIP_ICON_TALK, "[返回]", 0, t[intid]["parent"])
         player:GossipSendMenu(1, item)
     elseif (t[intid]["type"] == 2) then
         player:AddAura(t[intid]["spell"], player)

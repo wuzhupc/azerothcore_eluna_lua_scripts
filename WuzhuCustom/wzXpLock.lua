@@ -11,7 +11,7 @@ local wzCommon = require("wzCommon")
 local XpLock = {
     lockAccounts = { 201 }, --需要锁经验的账号ID
     lockBaseXp = 1,         --锁级时给的经验值(受全局经验系统数影响)
-    lockBaseMoney = 10,     --锁级时给的钱的基数，即原给的经验*此基数
+    lockBaseMoney = 20,     --锁级时给的钱的基数，即原给的经验*此基数
     lockInfo = {
         --多少等级在map时才能给经验，否则经验+lockBaseXp
         --60级后只能到外域才能获得正常经验

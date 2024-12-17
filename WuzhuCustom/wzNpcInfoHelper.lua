@@ -116,9 +116,9 @@ function NpcInfoHelper.AddObjectNameGossip(player, item, name)
         until not Query:NextRow() or index > NpcInfoHelper.queryLimit
     end
     local resultCount = lastNames.count
-    player:GossipMenuAddItem(0, "名字含'" .. name .. "'gameobject数:" .. resultCount, 0, NpcInfoHelper.midHome)
+    player:GossipMenuAddItem(wzCommon.GOSSIP_ICON_CHAT, "名字含'" .. name .. "'gameobject数:" .. resultCount, 0, NpcInfoHelper.midHome)
     for k, v in pairs(NpcInfoHelper.objectTemplateList[accountId]) do
-        player:GossipMenuAddItem(3, v.entry .. NpcInfoHelper.GetNameStr(v.twName, v.cnName, v.enName), 0, k)
+        player:GossipMenuAddItem(wzCommon.GOSSIP_ICON_TRAINER, v.entry .. NpcInfoHelper.GetNameStr(v.twName, v.cnName, v.enName), 0, k)
     end
     NpcInfoHelper.addHistory(player, NpcInfoHelper.midObjectQueryName, "[历史]GameObjet-Name:" .. name, name)
     player:GossipSendMenu(1, item)
@@ -173,13 +173,13 @@ function NpcInfoHelper.AddObjectGossip(player, item, entry)
 
     local resultCount = lastIds.count
     local creature = NpcInfoHelper.objectList[accountId][1]
-    player:GossipMenuAddItem(0, NpcInfoHelper.GetCreatureNameStr(creature) ..
+    player:GossipMenuAddItem(wzCommon.GOSSIP_ICON_CHAT, NpcInfoHelper.GetCreatureNameStr(creature) ..
         "(" .. creature.entry .. ",共" .. resultCount .. "个)", 0, NpcInfoHelper.midHome, false)
     for k, v in pairs(NpcInfoHelper.objectList[accountId]) do
         local areaName, mapName = wzCommon.getAreaInfoByMapInfo(v.map, v.x, v.y, v.z)
-        player:GossipMenuAddItem(3, v.guid .. "(" .. areaName .. "，" .. mapName .. ")", 0, k, true)
+        player:GossipMenuAddItem(wzCommon.GOSSIP_ICON_TRAINER, v.guid .. "(" .. areaName .. "，" .. mapName .. ")", 0, k, true)
     end
-    player:GossipMenuAddItem(0, "返回", 0, NpcInfoHelper.midBack)
+    player:GossipMenuAddItem(wzCommon.GOSSIP_ICON_CHAT, "返回", 0, NpcInfoHelper.midBack)
     player:SendAreaTriggerMessage("选中输入0=标识Object位置,1=直接传送到此Object")
     player:SendBroadcastMessage("选中输入0=标识Object位置,1=直接传送到此Object")
     player:GossipSendMenu(1, item)
@@ -219,9 +219,9 @@ function NpcInfoHelper.AddNameGossip(player, item, name)
     end
 
     local resultCount = lastNames.count
-    player:GossipMenuAddItem(0, "名字含'" .. name .. "'NPC数:" .. resultCount, 0, NpcInfoHelper.midHome)
+    player:GossipMenuAddItem(wzCommon.GOSSIP_ICON_CHAT, "名字含'" .. name .. "'NPC数:" .. resultCount, 0, NpcInfoHelper.midHome)
     for k, v in pairs(NpcInfoHelper.entryList[accountId]) do
-        player:GossipMenuAddItem(3, v.entry .. NpcInfoHelper.GetNameStr(v.twName, v.cnName, v.enName), 0, k)
+        player:GossipMenuAddItem(wzCommon.GOSSIP_ICON_TRAINER, v.entry .. NpcInfoHelper.GetNameStr(v.twName, v.cnName, v.enName), 0, k)
     end
     NpcInfoHelper.addHistory(player, NpcInfoHelper.midNpcQueryName, "[历史]NPC-Name:" .. name, name)
     player:GossipSendMenu(1, item)
@@ -283,14 +283,14 @@ function NpcInfoHelper.AddIdGossip(player, item, entry, guid)
 
     local resultCount = lastIds.count
     local creature = NpcInfoHelper.creatureList[accountId][1]
-    player:GossipMenuAddItem(0, NpcInfoHelper.GetCreatureNameStr(creature) ..
+    player:GossipMenuAddItem(wzCommon.GOSSIP_ICON_CHAT, NpcInfoHelper.GetCreatureNameStr(creature) ..
         "(" .. creature.entry .. ",共" .. resultCount .. "个)", 0, NpcInfoHelper.midHome, false)
     for k, v in pairs(NpcInfoHelper.creatureList[accountId]) do
         local areaName, mapName = wzCommon.getAreaInfoByMapInfo(v.map, v.x, v.y, v.z)
-        player:GossipMenuAddItem(3, v.guid .. "(" .. areaName .. "，" .. mapName .. ")", 0, k, true)
+        player:GossipMenuAddItem(wzCommon.GOSSIP_ICON_TRAINER, v.guid .. "(" .. areaName .. "，" .. mapName .. ")", 0, k, true)
     end
     if not guid then
-        player:GossipMenuAddItem(0, "返回", 0, NpcInfoHelper.midBack)
+        player:GossipMenuAddItem(wzCommon.GOSSIP_ICON_CHAT, "返回", 0, NpcInfoHelper.midBack)
     else
         NpcInfoHelper.addHistory(player, NpcInfoHelper.midNpcQueryId, "[历史]NPC-Id:" .. creature.entry, creature.entry)
     end
@@ -304,17 +304,17 @@ function NpcInfoHelper.OnUse(event, player, item)
     player:GossipClearMenu()
     local accountId = player:GetGUIDLow()
     NpcInfoHelper.lastOper[accountId] = {}
-    player:GossipMenuAddItem(8, "NPC查询-ID方式", 0, NpcInfoHelper.midNpcQueryId, true)
-    player:GossipMenuAddItem(8, "NPC查询-Name方式", 0, NpcInfoHelper.midNpcQueryName, true)
-    player:GossipMenuAddItem(2, "NPC信息-当前选中", 0, NpcInfoHelper.midNpcInfo, false)
-    player:GossipMenuAddItem(3, "GameObject-Name方式", 0, NpcInfoHelper.midObjectQueryName, true)
+    player:GossipMenuAddItem(wzCommon.GOSSIP_ICON_TABARD, "NPC查询-ID方式", 0, NpcInfoHelper.midNpcQueryId, true)
+    player:GossipMenuAddItem(wzCommon.GOSSIP_ICON_TABARD, "NPC查询-Name方式", 0, NpcInfoHelper.midNpcQueryName, true)
+    player:GossipMenuAddItem(wzCommon.GOSSIP_ICON_TAXI, "NPC信息-当前选中", 0, NpcInfoHelper.midNpcInfo, false)
+    player:GossipMenuAddItem(wzCommon.GOSSIP_ICON_TRAINER, "GameObject-Name方式", 0, NpcInfoHelper.midObjectQueryName, true)
     if (NpcInfoHelper.history[accountId]) then
         local h = NpcInfoHelper.history[accountId]
         for i = #h, 1, -1 do
-            player:GossipMenuAddItem(4, h[i].title, 0, NpcInfoHelper.midHistryQueryStart + i, false)
+            player:GossipMenuAddItem(wzCommon.GOSSIP_ICON_INTERACT_1, h[i].title, 0, NpcInfoHelper.midHistryQueryStart + i, false)
         end
     end
-    -- player:GossipMenuAddItem(3, "任务查询-ID方式", 0, NpcInfoHelper.midQuestQueryID, true)
+    -- player:GossipMenuAddItem(wzCommon.GOSSIP_ICON_TRAINER, "任务查询-ID方式", 0, NpcInfoHelper.midQuestQueryID, true)
     player:GossipSendMenu(1, item)
     return false
 end

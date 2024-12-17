@@ -27,19 +27,6 @@ local MENU                   = 2
 local TP                     = 3
 local ENC                    = 4
 
---GOSSIP_ICON 菜单图标
-local GOSSIP_ICON_CHAT       = 0  -- 对话
-local GOSSIP_ICON_VENDOR     = 1  -- 货物
-local GOSSIP_ICON_TAXI       = 2  -- 传送
-local GOSSIP_ICON_TRAINER    = 3  -- 训练（书）
-local GOSSIP_ICON_INTERACT_1 = 4  -- 复活
-local GOSSIP_ICON_INTERACT_2 = 5  -- 设为我的家
-local GOSSIP_ICON_MONEY_BAG  = 6  -- 钱袋
-local GOSSIP_ICON_TALK       = 7  -- 申请 说话+黑色点
-local GOSSIP_ICON_TABARD     = 8  -- 工会（战袍）
-local GOSSIP_ICON_BATTLE     = 9  -- 加入战场 双剑交叉
-local GOSSIP_ICON_DOT        = 10 -- 加入战场
-
 
 local Instances              = {  --副本表
     { 249, 0 }, { 249, 1 }, { 269, 1 }, { 309, 0 },
@@ -323,50 +310,50 @@ local Stone = {
 
 local Menu = {
     [MMENU] = { --主菜单
-        { FUNC, "传送→位置", Stone.GoHome, GOSSIP_ICON_INTERACT_1, false, "是否传送回|cFFF0F000记录位置|r ?" },
-        { FUNC, "记录←位置", Stone.SetHome, GOSSIP_ICON_INTERACT_2, false, "是否记录当前|cFFF0F000位置|r ?" },
-        -- { MENU, "地图传送", TPMENU, GOSSIP_ICON_TAXI },
-        -- { FUNC, "修理装备", Stone.RepairAll, GOSSIP_ICON_MONEY_BAG, false, "需要花费金币修理装备 ?" },
-        { FUNC, "在线银行", Stone.OpenBank, GOSSIP_ICON_MONEY_BAG },
-        { FUNC, "空中邮箱", Stone.OpenMailBox, GOSSIP_ICON_CHAT },
-        -- { FUNC, "在线拍卖行", Stone.OpenAutionHouse, GOSSIP_ICON_MONEY_BAG }, --目前会出现搜索不出物品
-        -- { FUNC, "召唤传送师", ST.SummonTeleporterSNPC, GOSSIP_ICON_TAXI },
-        -- { FUNC, "召唤技能师", ST.SummonSpellerRNPC, GOSSIP_ICON_TRAINER },
-        { FUNC, "召唤超级商人", ST.SummonSuperVendorNPC, GOSSIP_ICON_MONEY_BAG },
-        -- { MENU, "召唤商业训练师", PTMENU, GOSSIP_ICON_TRAINER },
-        -- { MENU, "其他功能", MMENU + 0x10, GOSSIP_ICON_CHAT },
-        -- { FUNC, "强制脱离战斗", Stone.OutCombat, GOSSIP_ICON_DOT },
+        { FUNC, "传送→位置", Stone.GoHome, wzCommon.GOSSIP_ICON_INTERACT_1, false, "是否传送回|cFFF0F000记录位置|r ?" },
+        { FUNC, "记录←位置", Stone.SetHome, wzCommon.GOSSIP_ICON_INTERACT_2, false, "是否记录当前|cFFF0F000位置|r ?" },
+        -- { MENU, "地图传送", TPMENU, wzCommon.GOSSIP_ICON_TAXI },
+        -- { FUNC, "修理装备", Stone.RepairAll, wzCommon.GOSSIP_ICON_MONEY_BAG, false, "需要花费金币修理装备 ?" },
+        { FUNC, "在线银行", Stone.OpenBank, wzCommon.GOSSIP_ICON_MONEY_BAG },
+        { FUNC, "空中邮箱", Stone.OpenMailBox, wzCommon.GOSSIP_ICON_CHAT },
+        -- { FUNC, "在线拍卖行", Stone.OpenAutionHouse, wzCommon.GOSSIP_ICON_MONEY_BAG }, --目前会出现搜索不出物品
+        -- { FUNC, "召唤传送师", ST.SummonTeleporterSNPC, wzCommon.GOSSIP_ICON_TAXI },
+        -- { FUNC, "召唤技能师", ST.SummonSpellerRNPC, wzCommon.GOSSIP_ICON_TRAINER },
+        { FUNC, "召唤超级商人", ST.SummonSuperVendorNPC, wzCommon.GOSSIP_ICON_MONEY_BAG },
+        -- { MENU, "召唤商业训练师", PTMENU, wzCommon.GOSSIP_ICON_TRAINER },
+        -- { MENU, "其他功能", MMENU + 0x10, wzCommon.GOSSIP_ICON_CHAT },
+        -- { FUNC, "强制脱离战斗", Stone.OutCombat, wzCommon.GOSSIP_ICON_DOT },
     },
 
     [MMENU + 0x10] = { --其他功能
-        { FUNC, "重置副本", Stone.UnBind, GOSSIP_ICON_INTERACT_2, false, "是否重置所有副本进度 ?" },
-        { FUNC, "解除虚弱", Stone.WeakOut, GOSSIP_ICON_INTERACT_1, false, "是否解除虚弱，并回复生命 ?" },
-        { FUNC, "重置天赋", Stone.ResetTalents, GOSSIP_ICON_TRAINER, false, "确认重置天赋 ?" },
-        -- { FUNC, "空中邮箱", Stone.OpenMailBox, GOSSIP_ICON_CHAT },
+        { FUNC, "重置副本", Stone.UnBind, wzCommon.GOSSIP_ICON_INTERACT_2, false, "是否重置所有副本进度 ?" },
+        { FUNC, "解除虚弱", Stone.WeakOut, wzCommon.GOSSIP_ICON_INTERACT_1, false, "是否解除虚弱，并回复生命 ?" },
+        { FUNC, "重置天赋", Stone.ResetTalents, wzCommon.GOSSIP_ICON_TRAINER, false, "确认重置天赋 ?" },
+        -- { FUNC, "空中邮箱", Stone.OpenMailBox, wzCommon.GOSSIP_ICON_CHAT },
     },
 
     [GMMENU] = { --GM菜单
-        { FUNC, "重置所有冷却", Stone.ResetAllCD, GOSSIP_ICON_INTERACT_1, false, "确认重置所有冷却 ?" },
-        { FUNC, "保存角色", Stone.SaveToDB, GOSSIP_ICON_INTERACT_1 },
-        { FUNC, "返回选择角色", Stone.Logout, GOSSIP_ICON_INTERACT_1, false, "返回选择角色界面 ?" },
-        { FUNC, "|cFF800000不保存角色|r", Stone.LogoutNosave, GOSSIP_ICON_INTERACT_1, false, "|cFFFF0000不保存角色，并返回选择角色界面 ?|r" },
+        { FUNC, "重置所有冷却", Stone.ResetAllCD, wzCommon.GOSSIP_ICON_INTERACT_1, false, "确认重置所有冷却 ?" },
+        { FUNC, "保存角色", Stone.SaveToDB, wzCommon.GOSSIP_ICON_INTERACT_1 },
+        { FUNC, "返回选择角色", Stone.Logout, wzCommon.GOSSIP_ICON_INTERACT_1, false, "返回选择角色界面 ?" },
+        { FUNC, "|cFF800000不保存角色|r", Stone.LogoutNosave, wzCommon.GOSSIP_ICON_INTERACT_1, false, "|cFFFF0000不保存角色，并返回选择角色界面 ?|r" },
 
     },
 
     [TPMENU] = { --传送菜单
-        { MENU, "|cFF002244[城市]|r主要城市", TPMENU + 0x10, GOSSIP_ICON_BATTLE },
-        { MENU, "|cFF002288[出生]|r种族出生地", TPMENU + 0x20, GOSSIP_ICON_BATTLE },
-        { MENU, "|cFF0022CC[野外]|r东部王国", TPMENU + 0x30, GOSSIP_ICON_BATTLE },
-        { MENU, "|cFF0022CC[野外]|r卡利姆多", TPMENU + 0x40, GOSSIP_ICON_BATTLE },
-        { MENU, "|cFF0022CC[野外]|r外域", TPMENU + 0x50, GOSSIP_ICON_BATTLE },
-        { MENU, "|cFF0022CC[野外]|r诺森德", TPMENU + 0x60, GOSSIP_ICON_BATTLE },
-        { MENU, "|cFF822222【5人】经典旧世界地下城|r    ★☆☆☆☆", TPMENU + 0x70, GOSSIP_ICON_BATTLE },
-        { MENU, "|cFF922222【5人】燃烧的远征地下城|r    ★★☆☆☆", TPMENU + 0x80, GOSSIP_ICON_BATTLE },
-        { MENU, "|cFFA22222【5人】巫妖王之怒地下城|r    ★★★☆☆", TPMENU + 0x90, GOSSIP_ICON_BATTLE },
-        { MENU, "|cFFB22222【10人-40人】团队地下城|r  ★★★★★", TPMENU + 0xa0, GOSSIP_ICON_BATTLE },
-        { MENU, "|cFF0022FF[特殊]|r竞技场传送", TPMENU + 0xb0, GOSSIP_ICON_BATTLE },
-        { MENU, "|cFF0022FF[特殊]|r传送到职业训练", MMENU + 0x20, GOSSIP_ICON_TAXI },
-        { MENU, "|cFF0022FF[特殊]|r传送到技能训练|cFF0000FF[武器/骑术/飞行]|r", MMENU + 0x30, GOSSIP_ICON_TAXI },
+        { MENU, "|cFF002244[城市]|r主要城市", TPMENU + 0x10, wzCommon.GOSSIP_ICON_BATTLE },
+        { MENU, "|cFF002288[出生]|r种族出生地", TPMENU + 0x20, wzCommon.GOSSIP_ICON_BATTLE },
+        { MENU, "|cFF0022CC[野外]|r东部王国", TPMENU + 0x30, wzCommon.GOSSIP_ICON_BATTLE },
+        { MENU, "|cFF0022CC[野外]|r卡利姆多", TPMENU + 0x40, wzCommon.GOSSIP_ICON_BATTLE },
+        { MENU, "|cFF0022CC[野外]|r外域", TPMENU + 0x50, wzCommon.GOSSIP_ICON_BATTLE },
+        { MENU, "|cFF0022CC[野外]|r诺森德", TPMENU + 0x60, wzCommon.GOSSIP_ICON_BATTLE },
+        { MENU, "|cFF822222【5人】经典旧世界地下城|r    ★☆☆☆☆", TPMENU + 0x70, wzCommon.GOSSIP_ICON_BATTLE },
+        { MENU, "|cFF922222【5人】燃烧的远征地下城|r    ★★☆☆☆", TPMENU + 0x80, wzCommon.GOSSIP_ICON_BATTLE },
+        { MENU, "|cFFA22222【5人】巫妖王之怒地下城|r    ★★★☆☆", TPMENU + 0x90, wzCommon.GOSSIP_ICON_BATTLE },
+        { MENU, "|cFFB22222【10人-40人】团队地下城|r  ★★★★★", TPMENU + 0xa0, wzCommon.GOSSIP_ICON_BATTLE },
+        { MENU, "|cFF0022FF[特殊]|r竞技场传送", TPMENU + 0xb0, wzCommon.GOSSIP_ICON_BATTLE },
+        { MENU, "|cFF0022FF[特殊]|r传送到职业训练", MMENU + 0x20, wzCommon.GOSSIP_ICON_TAXI },
+        { MENU, "|cFF0022FF[特殊]|r传送到技能训练|cFF0000FF[武器/骑术/飞行]|r", MMENU + 0x30, wzCommon.GOSSIP_ICON_TAXI },
         --{MENU, "风景传送",							TPMENU+0xc0,	GOSSIP_ICON_BATTLE},
         --{MENU, "野外BOSS传送",						TPMENU+0xd0,	GOSSIP_ICON_BATTLE},
     },
@@ -627,20 +614,20 @@ local Menu = {
     },
 
     [PTMENU] = { --GM菜单
-        { FUNC, "召唤炼金训练师", ST.SummonNPCAlchemy, GOSSIP_ICON_TRAINER },
-        { FUNC, "召唤锻造训练师", ST.SummonNPCBlacksmithing, GOSSIP_ICON_TRAINER },
-        { FUNC, "召唤附魔训练师", ST.SummonNPCEnchanting, GOSSIP_ICON_TRAINER },
-        { FUNC, "召唤工程学训练师", ST.SummonNPCEngineering, GOSSIP_ICON_TRAINER },
-        { FUNC, "召唤草药训练师", ST.SummonNPCHerbalism, GOSSIP_ICON_TRAINER },
-        { FUNC, "召唤铭文训练师", ST.SummonNPCInscription, GOSSIP_ICON_TRAINER },
-        { FUNC, "召唤珠宝加工训练师", ST.SummonNPCJewelcrafting, GOSSIP_ICON_TRAINER },
-        { FUNC, "召唤皮甲训练师", ST.SummonNPCLeatherworking, GOSSIP_ICON_TRAINER },
-        { FUNC, "召唤采矿训练师", ST.SummonNPCMining, GOSSIP_ICON_TRAINER },
-        { FUNC, "召唤剥皮训练师", ST.SummonNPCSkinning, GOSSIP_ICON_TRAINER },
-        { FUNC, "召唤裁缝训练师", ST.SummonNPCTailoring, GOSSIP_ICON_TRAINER },
-        { FUNC, "召唤烹饪训练师", ST.SummonNPCCooking, GOSSIP_ICON_TRAINER },
-        { FUNC, "召唤急救训练师", ST.SummonNPCFirstAid, GOSSIP_ICON_TRAINER },
-        { FUNC, "召唤钓鱼训练师", ST.SummonNPCFishing, GOSSIP_ICON_TRAINER },
+        { FUNC, "召唤炼金训练师", ST.SummonNPCAlchemy, wzCommon.GOSSIP_ICON_TRAINER },
+        { FUNC, "召唤锻造训练师", ST.SummonNPCBlacksmithing, wzCommon.GOSSIP_ICON_TRAINER },
+        { FUNC, "召唤附魔训练师", ST.SummonNPCEnchanting, wzCommon.GOSSIP_ICON_TRAINER },
+        { FUNC, "召唤工程学训练师", ST.SummonNPCEngineering, wzCommon.GOSSIP_ICON_TRAINER },
+        { FUNC, "召唤草药训练师", ST.SummonNPCHerbalism, wzCommon.GOSSIP_ICON_TRAINER },
+        { FUNC, "召唤铭文训练师", ST.SummonNPCInscription, wzCommon.GOSSIP_ICON_TRAINER },
+        { FUNC, "召唤珠宝加工训练师", ST.SummonNPCJewelcrafting, wzCommon.GOSSIP_ICON_TRAINER },
+        { FUNC, "召唤皮甲训练师", ST.SummonNPCLeatherworking, wzCommon.GOSSIP_ICON_TRAINER },
+        { FUNC, "召唤采矿训练师", ST.SummonNPCMining, wzCommon.GOSSIP_ICON_TRAINER },
+        { FUNC, "召唤剥皮训练师", ST.SummonNPCSkinning, wzCommon.GOSSIP_ICON_TRAINER },
+        { FUNC, "召唤裁缝训练师", ST.SummonNPCTailoring, wzCommon.GOSSIP_ICON_TRAINER },
+        { FUNC, "召唤烹饪训练师", ST.SummonNPCCooking, wzCommon.GOSSIP_ICON_TRAINER },
+        { FUNC, "召唤急救训练师", ST.SummonNPCFirstAid, wzCommon.GOSSIP_ICON_TRAINER },
+        { FUNC, "召唤钓鱼训练师", ST.SummonNPCFishing, wzCommon.GOSSIP_ICON_TRAINER },
     },
 }
 
@@ -671,9 +658,9 @@ function Stone.AddGossip(player, item, id)
 			local mteam,level,money=(v[8] or TEAM_NONE),(v[9] or 0),(v[10] or 0)
             -- if (player:GetLevel() >= level) then
 				if(mteam==Pteam)then
-					player:GossipMenuAddItem(GOSSIP_ICON_TAXI, teamStr..text..ST.GetLevelDescStr(money, level), money, intid, false,"是否传送到 |cFFFFFF00"..text.."|r ?",money)
+					player:GossipMenuAddItem(wzCommon.GOSSIP_ICON_TAXI, teamStr..text..ST.GetLevelDescStr(money, level), money, intid, false,"是否传送到 |cFFFFFF00"..text.."|r ?",money)
 				elseif(mteam == TEAM_NONE)then
-					player:GossipMenuAddItem(GOSSIP_ICON_TAXI, text..ST.GetLevelDescStr(money, level), money, intid, false,"是否传送到 |cFFFFFF00"..text.."|r ?",money)
+					player:GossipMenuAddItem(wzCommon.GOSSIP_ICON_TAXI, text..ST.GetLevelDescStr(money, level), money, intid, false,"是否传送到 |cFFFFFF00"..text.."|r ?",money)
 				end
 			-- end
         else
@@ -686,18 +673,18 @@ function Stone.AddGossip(player, item, id)
         if (length > 1) then
             local temp = bit_and(id, 2 ^ ((length - 1) * 4) - 1)
             if (temp ~= MMENU) then
-                player:GossipMenuAddItem(GOSSIP_ICON_CHAT, "上一页", 0, temp * 0x100)
+                player:GossipMenuAddItem(wzCommon.GOSSIP_ICON_CHAT, "上一页", 0, temp * 0x100)
             end
         end
     end
 
     if (id ~= MMENU) then --添加返回主菜单
-        player:GossipMenuAddItem(GOSSIP_ICON_CHAT, "主菜单", 0, MMENU * 0x100)
+        player:GossipMenuAddItem(wzCommon.GOSSIP_ICON_CHAT, "主菜单", 0, MMENU * 0x100)
     else
         if (player:GetGMRank() >= 3) then --是GM
-            player:GossipMenuAddItem(GOSSIP_ICON_CHAT, "GM功能", 0, GMMENU * 0x100)
+            player:GossipMenuAddItem(wzCommon.GOSSIP_ICON_CHAT, "GM功能", 0, GMMENU * 0x100)
         end
-        player:GossipMenuAddItem(GOSSIP_ICON_CHAT, "在线总时间：|cFF000080" .. Stone.GetTimeASString(player) .. "|r", 0,
+        player:GossipMenuAddItem(wzCommon.GOSSIP_ICON_CHAT, "在线总时间：|cFF000080" .. Stone.GetTimeASString(player) .. "|r", 0,
             MMENU * 0x100)
     end
 

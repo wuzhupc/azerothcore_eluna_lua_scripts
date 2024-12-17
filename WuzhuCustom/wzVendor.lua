@@ -7,15 +7,14 @@ Description:超级商人(NPC-922006)脚本-修改版本，直接使用npc_vendor
 Copyright (c) 2024 by WUZHUPC, All Rights Reserved.
 --]]
 print(">>Script: wzVendor loading...")
+local wzCommon = require("wzCommon")
 
 -- local wzVendor_DW = 1
 -- local wzVendor_OT = 2
 local wzVendor    = {
 	NPCID              = 922006,
 	NPCNAME            = "物资商人",
-	--GOSSIP_ICON 菜单图标
-	GOSSIP_ICON_CHAT   = 0, -- 对话
-	GOSSIP_ICON_VENDOR = 1, -- 货物
+	
 	VENDOR_ENTRY_START = 922700, --商人entry起始
 	GOODS              = { --货物id号
 		[0] = {          --菜单
@@ -77,7 +76,7 @@ function wzVendor.AddMenu(player, unit, id)
 	player:GossipClearMenu() --清除菜单
 	local menus = wzVendor.GOODS[id]
 	for k, v in pairs(menus) do
-		player:GossipMenuAddItem(v[3] or wzVendor.GOSSIP_ICON_VENDOR, v[1] or "???", 0, (v[2] or k))
+		player:GossipMenuAddItem(v[3] or wzCommon.GOSSIP_ICON_VENDOR, v[1] or "???", 0, (v[2] or k))
 	end
 	player:GossipSendMenu(1, unit) --发送菜单
 end

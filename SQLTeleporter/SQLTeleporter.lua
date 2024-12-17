@@ -7,6 +7,9 @@ Description: 传送脚本(NPC:922001)修改版本
 Copyright (c) 2024 by WUZHUPC, All Rights Reserved. 
 --]]
 print(">>Script: SQLTeleporter loading...")
+
+local wzCommon = require("wzCommon")
+
 local Teleporter = {
     entry = 922001 -- Unit entry
 }
@@ -41,7 +44,7 @@ function Teleporter.OnSelect(event, player, unit, sender, intid, code)
         for k, v in pairs(datas) do
             player:GossipMenuAddItem(v["icon"], v["name"], 0, v["id"])
         end
-        player:GossipMenuAddItem(7, "[返回]", 0, t[intid]["parent"])
+        player:GossipMenuAddItem(wzCommon.GOSSIP_ICON_TALK, "[返回]", 0, t[intid]["parent"])
         player:GossipSendMenu(1, unit)
     elseif(t[intid]["type"] == 2) then
         player:Teleport(t[intid]["map"], t[intid]["x"], t[intid]["y"], t[intid]["z"], t[intid]["o"])

@@ -194,7 +194,7 @@ local Professionser = {
 function Professionser.OnUse(event, player, unit)
     --icon, msg, sender, intid, code, popup, money
     for k, v in pairs(Professionser.skills) do
-        player:GossipMenuAddItem(3, v.name .. v.name_en, 0, v.skill)
+        player:GossipMenuAddItem(wzCommon.GOSSIP_ICON_TRAINER, v.name .. v.name_en, 0, v.skill)
     end
     player:GossipSendMenu(1, unit)
 end
@@ -274,16 +274,16 @@ function Professionser.OnGossipSelect(event, player, unit, sender, intid, code)
             local nowSkillValue = player:GetSkillValue(intid)
             if (level == 0) then
                 --未学习，显示技能名称：未学习
-                player:GossipMenuAddItem(0, skill.name .. "[未学习]", 0, Professionser.menuid_complete)
+                player:GossipMenuAddItem(wzCommon.GOSSIP_ICON_CHAT, skill.name .. "[未学习]", 0, Professionser.menuid_complete)
             else
                 --已经学习显示技能名称：当前等级，当前技能点数
-                player:GossipMenuAddItem(0,
+                player:GossipMenuAddItem(wzCommon.GOSSIP_ICON_CHAT,
                     skill.name ..
                     "|cFF0000FF当前:" .. Professionser.skills_level_names[level] .. "(" .. nowSkillValue .. ")|r", 0,
                     Professionser.menuid_complete)
             end
             if (level < #Professionser.skills_level_maxvalues) then
-                player:GossipMenuAddItem(3,
+                player:GossipMenuAddItem(wzCommon.GOSSIP_ICON_TRAINER,
                     "学习" ..
                     Professionser.skills_level_names[level + 1] ..
                     wzCommon.MoneyToString(Professionser.skills_level_maxvalues[level + 1] * Professionser.money_base,
@@ -294,7 +294,7 @@ function Professionser.OnGossipSelect(event, player, unit, sender, intid, code)
             if (level > 0) then
                 local nextLevelValue = Professionser.skills_level_maxvalues[level] - nowSkillValue
                 if (nextLevelValue >= Professionser.menuid_advance_1) then
-                    player:GossipMenuAddItem(3,
+                    player:GossipMenuAddItem(wzCommon.GOSSIP_ICON_TRAINER,
                         "技能点数+10" ..
                         wzCommon.MoneyToString(
                             10 * Professionser.skills_level_maxvalues[level] * Professionser.money_base,
@@ -303,7 +303,7 @@ function Professionser.OnGossipSelect(event, player, unit, sender, intid, code)
                         10 * Professionser.skills_level_maxvalues[level] * Professionser.money_base)
                 end
                 if (nextLevelValue >= Professionser.menuid_advance_5) then
-                    player:GossipMenuAddItem(3,
+                    player:GossipMenuAddItem(wzCommon.GOSSIP_ICON_TRAINER,
                         "技能点数+50" ..
                         wzCommon.MoneyToString(
                             50 * Professionser.skills_level_maxvalues[level] * Professionser.money_base, true),
@@ -312,7 +312,7 @@ function Professionser.OnGossipSelect(event, player, unit, sender, intid, code)
                         50 * Professionser.skills_level_maxvalues[level] * Professionser.money_base)
                 end
                 if (nextLevelValue >= Professionser.menuid_advance_10) then
-                    player:GossipMenuAddItem(3,
+                    player:GossipMenuAddItem(wzCommon.GOSSIP_ICON_TRAINER,
                         "技能点数+100" ..
                         wzCommon.MoneyToString(
                             100 * Professionser.skills_level_maxvalues[level] * Professionser.money_base, true), 0,
@@ -321,7 +321,7 @@ function Professionser.OnGossipSelect(event, player, unit, sender, intid, code)
                 end
                 if (nextLevelValue > 0) then
                     --icon, msg, sender, intid, code, popup, money
-                    player:GossipMenuAddItem(3,
+                    player:GossipMenuAddItem(wzCommon.GOSSIP_ICON_TRAINER,
                         "本级技能点数加满+" ..
                         nextLevelValue ..
                         wzCommon.MoneyToString(nextLevelValue * Professionser.skills_level_maxvalues[level] *
@@ -336,7 +336,7 @@ function Professionser.OnGossipSelect(event, player, unit, sender, intid, code)
                     if advskill then
                         local has = player:HasSpell(as)
                         if (has) then
-                            player:GossipMenuAddItem(3,
+                            player:GossipMenuAddItem(wzCommon.GOSSIP_ICON_TRAINER,
                                 "【学习】" .. advskill[2] ..
                                 "(已拥有)", 0,
                                 GetMenuidAdvance(as, Professionser.menuid_advance_skill))
@@ -345,7 +345,7 @@ function Professionser.OnGossipSelect(event, player, unit, sender, intid, code)
                             if (not needmoney) then
                                 needmoney = Professionser.money_advance_skill
                             end
-                            player:GossipMenuAddItem(3,
+                            player:GossipMenuAddItem(wzCommon.GOSSIP_ICON_TRAINER,
                                 "【学习】" .. advskill[2] ..
                                 "(需" .. wzCommon.MoneyToString(needmoney, true) .. ",技能" .. advskill[4] .. ")", 0,
                                 GetMenuidAdvance(as, Professionser.menuid_advance_skill), false, '需要花费的铜币', needmoney)
@@ -357,13 +357,13 @@ function Professionser.OnGossipSelect(event, player, unit, sender, intid, code)
                 for i, npc in ipairs(skill.npcids) do
                     local n = Professionser.npcs[npc]
                     if n then
-                        player:GossipMenuAddItem(2, "【传送到训练师】" .. n[1], 0,
+                        player:GossipMenuAddItem(wzCommon.GOSSIP_ICON_TAXI, "【传送到训练师】" .. n[1], 0,
                             GetMenuidAdvance(npc, Professionser.menuid_npc), false, "确定要传送吗？")
                     end
                 end
             end
         end
-        player:GossipMenuAddItem(7, "[返回]", 0, Professionser.menuid_home)
+        player:GossipMenuAddItem(wzCommon.GOSSIP_ICON_TALK, "[返回]", 0, Professionser.menuid_home)
         player:GossipSendMenu(1, unit)
     elseif intid > 100000 then
         local skillid, menuid = ParseMenuidAdvance(intid)

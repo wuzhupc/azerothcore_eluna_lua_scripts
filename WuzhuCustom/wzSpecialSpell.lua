@@ -95,7 +95,7 @@ function Speller.OnSelect(event, player, unit, sender, intid, code)
                 false,
                 tmpStr, v["money"])
         end
-        player:GossipMenuAddItem(7, "[返回]", 0, t[intid]["parent"])
+        player:GossipMenuAddItem(wzCommon.GOSSIP_ICON_TALK, "[返回]", 0, t[intid]["parent"])
         player:GossipSendMenu(1, unit)
     elseif (t[intid]["type"] == 2) then
         if (player:GetCoinage() < t[intid]["money"]) then

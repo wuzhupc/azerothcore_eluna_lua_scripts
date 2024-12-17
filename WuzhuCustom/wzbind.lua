@@ -10,7 +10,6 @@ print(">>Script: wzBind loading...")
 local wzCommon = require("wzCommon")
 
 local ItemWzBind = {
-    bindEntry = 922001,      --绑定物品ID
     teleportEntry = 922002,  --传送物品ID
     inputBindEntry = 922004, --绑定物品ID（弹出输入）
     pageCount = 5,           --页数
@@ -43,18 +42,18 @@ end
 function ItemWzBind.AddBindGossip(player, item, nowpage)
     player:GossipClearMenu() --清除菜单
     if (nowpage > 1) then
-        player:GossipMenuAddItem(0, "<上一页>", 0, ItemWzBind.menuidPageBase + nowpage - 1)
+        player:GossipMenuAddItem(wzCommon.GOSSIP_ICON_CHAT, "<上一页>", 0, ItemWzBind.menuidPageBase + nowpage - 1)
     end
     if (nowpage < ItemWzBind.pageCount) then
-        player:GossipMenuAddItem(0, "<下一页>", 0, ItemWzBind.menuidPageBase + nowpage + 1)
+        player:GossipMenuAddItem(wzCommon.GOSSIP_ICON_CHAT, "<下一页>", 0, ItemWzBind.menuidPageBase + nowpage + 1)
     end
     local datas = ItemWzBind.GetPageBindDatas(player, nowpage)
     for k, v in pairs(datas) do
         -- icon, msg, sender, intid, code, popup, money
-        player:GossipMenuAddItem(3, "<绑定>" .. v.name, 0, v.index, true)
+        player:GossipMenuAddItem(wzCommon.GOSSIP_ICON_TRAINER, "<绑定>" .. v.name, 0, v.index, true)
     end
     if (nowpage ~= 1) then
-        player:GossipMenuAddItem(0, "<返回首页>", 0, ItemWzBind.menuidHome)
+        player:GossipMenuAddItem(wzCommon.GOSSIP_ICON_CHAT, "<返回首页>", 0, ItemWzBind.menuidHome)
     end
     player:GossipSendMenu(1, item)
 end
@@ -156,18 +155,18 @@ end
 function ItemWzBind.OnTeleportGoosip(player, item, nowpage)
     player:GossipClearMenu() --清除菜单
     if (nowpage > 1) then
-        player:GossipMenuAddItem(0, "<上一页>", 0, ItemWzBind.menuidPageBase + nowpage - 1)
+        player:GossipMenuAddItem(wzCommon.GOSSIP_ICON_CHAT, "<上一页>", 0, ItemWzBind.menuidPageBase + nowpage - 1)
     end
     if (nowpage < ItemWzBind.pageCount) then
-        player:GossipMenuAddItem(0, "<下一页>", 0, ItemWzBind.menuidPageBase + nowpage + 1)
+        player:GossipMenuAddItem(wzCommon.GOSSIP_ICON_CHAT, "<下一页>", 0, ItemWzBind.menuidPageBase + nowpage + 1)
     end
     local datas = ItemWzBind.GetPageBindDatas(player, nowpage)
     for k, v in pairs(datas) do
         -- icon, msg, sender, intid, code, popup, money
-        player:GossipMenuAddItem(2, "<传送>" .. v.name, 0, v.index, false, "确定要传送到" .. v.name .. "吗？")
+        player:GossipMenuAddItem(wzCommon.GOSSIP_ICON_TAXI, "<传送>" .. v.name, 0, v.index, false, "确定要传送到" .. v.name .. "吗？")
     end
     if (nowpage ~= 1) then
-        player:GossipMenuAddItem(0, "<返回首页>", 0, ItemWzBind.menuidHome)
+        player:GossipMenuAddItem(wzCommon.GOSSIP_ICON_CHAT, "<返回首页>", 0, ItemWzBind.menuidHome)
     end
     player:GossipSendMenu(1, item)
 end

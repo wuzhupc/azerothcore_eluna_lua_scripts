@@ -7,7 +7,22 @@ Description: 通用函数库
 Copyright (c) 2024 by WUZHUPC, All Rights Reserved. 
 --]]
 print(">>Script: wzCommon loading...")
-local wzCommon = {}
+local wzCommon = {
+    GOSSIP_ICON_CHAT       = 0,  -- 对话
+    GOSSIP_ICON_VENDOR     = 1,  -- 货物
+    GOSSIP_ICON_TAXI       = 2,  -- 传送
+    GOSSIP_ICON_TRAINER    = 3,  -- 训练（书）
+    GOSSIP_ICON_INTERACT_1 = 4,  -- 复活
+    GOSSIP_ICON_INTERACT_2 = 5,  -- 设为我的家
+    GOSSIP_ICON_MONEY_BAG  = 6,  -- 钱袋
+    GOSSIP_ICON_TALK       = 7,  -- 申请 说话+黑色点
+    GOSSIP_ICON_TABARD     = 8,  -- 工会（战袍）
+    GOSSIP_ICON_BATTLE     = 9,  -- 加入战场 双剑交叉
+    GOSSIP_ICON_DOT        = 10,-- 加入战场
+}
+
+--GOSSIP_ICON 菜单图标
+
 
 -- 分割字符串
 function wzCommon.SplitString(inputstr, sep)
